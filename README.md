@@ -10,7 +10,7 @@ JetPack Navigation을 이용하여 UI변경 및 데이터 전달을 구현해보
 HomeFragment의 프로필은 Github user api를 이용하여 ID를 입력하면 가져올 수 있도록 하였습니다.  
 부족한 부분은 추후 과제를 수행하면서 리팩토링하겠습니다!  
   
-### 💡 navigation_graph.xml  
+### 💡navigation_graph.xml  
  nav_graph를 생성한 뒤 login, signup, home fragment를 추가해주었습니다.  
 이후 ui path에 따라 fragment 전환 action을 생성해주었습니다.  
   
@@ -22,7 +22,7 @@ LogInFragment에서 회원가입이 완료되면 id를 HomeFragment에 전달해
 <img src ="https://user-images.githubusercontent.com/56873136/114046600-f0260400-98c3-11eb-8304-2545240fe90b.JPG">
   
   
-### 💼  FragmentContainerView 추가 및 navigation graph 설정  
+### 💼FragmentContainerView 추가 및 navigation graph 설정  
 MainActivity에는 fragment들을 담을 NavHostFragment를 만들어주었으며 앞서 만들었던 navigation graph를 설정해주었습니다.
 ```
 <androidx.fragment.app.FragmentContainerView  
@@ -39,7 +39,7 @@ MainActivity에는 fragment들을 담을 NavHostFragment를 만들어주었으�
   ```  
   
     
-### 👋 SignInFragment.kt  
+### 👋SignInFragment.kt  
 Activity의 결과값을 받아오는 startActivityForResult처럼 Navigation을 이용하여 Fragment에서 이전 스택에서 데이터를 받아올 수 있습니다.  
 navigation을 이용하면 previousBackStackEntry를 통해서 이전 스택에 있는 fragment에 접근을 할 수 있습니다.  
 savedStateHandle 속성을 통해 <key, value>형태로 데이터를 전달할 수 있습니다.
@@ -60,7 +60,7 @@ private fun completeSingUp() {
 }
 ```  
   
-### 🔓 LogInFragment.kt  
+### 🔓LogInFragment.kt  
 currentBackStackEntry를 통해서 직전 Back Stack에 접근할 수 있습니다.  
 savedStateHandle에 저장하였던 데이터를 키값을 참조하여 가져왔고 viewModel의 LiveData의 id와 password 값을 바꿔주었습니다.  
 
