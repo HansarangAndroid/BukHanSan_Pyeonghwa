@@ -1,4 +1,4 @@
-package com.example.lecturesopt28th.home
+package com.example.lecturesopt28th.home.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
     private val searchUserRepository: SearchUserRepository
 ) : ViewModel() {
 
-    val name = MutableLiveData<String>()
+    val userId = MutableLiveData<String>()
 
     private val _userInfo = MutableLiveData<SearchUserModel>()
     val userInfo: LiveData<SearchUserModel>
@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getUserAccessed() {
-        searchUserRepository.getUserInfo(name.value)
+        searchUserRepository.getUserInfo(userId.value)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

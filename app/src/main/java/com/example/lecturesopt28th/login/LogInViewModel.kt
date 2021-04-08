@@ -14,6 +14,5 @@ import javax.inject.Inject
 
 class LogInViewModel : ViewModel() {
     val id = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
-
+    val password= MutableLiveData<String>()
 }

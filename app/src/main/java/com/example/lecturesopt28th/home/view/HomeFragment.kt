@@ -10,17 +10,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
-import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentHomeBinding
-import com.example.lecturesopt28th.home.HomeViewModel
-import com.example.lecturesopt28th.home.data.dto.SearchUserModel
-import com.example.lecturesopt28th.login.LogInFragmentDirections
-import com.thedeanda.lorem.LoremIpsum
+import com.example.lecturesopt28th.home.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +40,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initShowUser() {
-        viewModel.name.value = args.id
+        viewModel.userId.value = args.id
         viewModel.getUserAccessed()
         binding.edittextIdGithub.clearFocus()
     }

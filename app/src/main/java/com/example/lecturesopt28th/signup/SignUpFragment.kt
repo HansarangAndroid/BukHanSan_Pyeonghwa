@@ -15,7 +15,6 @@ import com.example.lecturesopt28th.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment(){
     private lateinit var binding: FragmentSignUpBinding
-    private val args: SignUpFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,

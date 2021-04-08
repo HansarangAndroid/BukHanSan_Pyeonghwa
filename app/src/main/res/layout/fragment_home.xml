@@ -8,7 +8,7 @@
             type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.example.lecturesopt28th.home.HomeViewModel" />
+            type="com.example.lecturesopt28th.home.viewmodel.HomeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,15 +36,13 @@
 
         </androidx.cardview.widget.CardView>
 
-
-
         <EditText
             android:id="@+id/edittext_id_github"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:textSize="20sp"
-            android:text="@={viewModel.name}"
+            android:text="@={viewModel.userId}"
             android:background="@null"
             android:inputType="text"
             android:fontFamily="@font/apple_sd_gothic_neo_medium"
