@@ -1,6 +1,6 @@
 ## First Week Assignment📚
 
-<img src = "https://user-images.githubusercontent.com/56873136/114044532-45f9ac80-98c2-11eb-8239-5f54d4a24ba4.gif" width = 30%> <img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 30%> <img src = "https://user-images.githubusercontent.com/56873136/114044776-780b0e80-98c2-11eb-980a-e64020eaa8fc.gif" width = 30%>
+<img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 30%> <img src = "https://user-images.githubusercontent.com/56873136/114044532-45f9ac80-98c2-11eb-8239-5f54d4a24ba4.gif" width = 30%> <img src = "https://user-images.githubusercontent.com/56873136/114044776-780b0e80-98c2-11eb-980a-e64020eaa8fc.gif" width = 30%>
 
 
 
@@ -25,7 +25,7 @@ LogInFragment에서 회원가입이 완료되면 id를 HomeFragment에 전달해
 
 <img src ="https://user-images.githubusercontent.com/56873136/114046600-f0260400-98c3-11eb-8304-2545240fe90b.JPG">
   
-
+  
 **💼  FragmentContainerView 추가 및 navigation graph 설정**  
 MainActivity에는 fragment들을 담을 NavHostFragment를 만들어주었으며 앞서 만들었던 navigation graph를 설정해주었습니다.
 ```
@@ -42,6 +42,7 @@ MainActivity에는 fragment들을 담을 NavHostFragment를 만들어주었으�
   app:layout_constraintBottom_toBottomOf="parent"/>
   ```  
   
+    
 **👋 SignInFragment.kt**  
 Activity의 결과값을 받아오는 startActivityForResult처럼 Navigation을 이용하여 Fragment에서 이전 스택에서 데이터를 받아올 수 있습니다.  
 navigation을 이용하면 previousBackStackEntry를 통해서 이전 스택에 있는 fragment에 접근을 할 수 있습니다.  
