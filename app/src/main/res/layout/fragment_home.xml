@@ -1,13 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="view"
+            type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.example.lecturesopt28th.home.HomeViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.HomeFragment">
+        tools:context=".home.view.HomeFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.15"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/imageview_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                uploadUrl="@{viewModel.userInfo != null ? viewModel.userInfo.avatarUrl: null}" />
+
+        </androidx.cardview.widget.CardView>
 
 
+
+        <EditText
+            android:id="@+id/edittext_id_github"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textSize="20sp"
+            android:text="@={viewModel.name}"
+            android:background="@null"
+            android:fontFamily="@font/apple_sd_gothic_neo_medium"
+            android:hint="Insert Your Git Hub Id"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardview_profile"
+            tools:text="SSON_PEACE7" />
+
+        <Button
+            android:id="@+id/button_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:background="@drawable/ic_search"
+            app:layout_constraintTop_toTopOf="@id/edittext_id_github"
+            app:layout_constraintBottom_toBottomOf="@id/edittext_id_github"
+            app:layout_constraintEnd_toEndOf="@id/edittext_id_github"/>
+
+
+        <TextView
+            android:id="@+id/textview_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textSize="24sp"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            android:text="@{viewModel.userInfo.name}"
+            app:layout_constraintEnd_toEndOf="@+id/edittext_id_github"
+            app:layout_constraintStart_toStartOf="@+id/edittext_id_github"
+            app:layout_constraintTop_toBottomOf="@id/edittext_id_github"
+            tools:text="SSON_PEACE7" />
+
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/textview_name"
+            app:layout_constraintStart_toStartOf="@id/textview_name"
+            app:layout_constraintTop_toBottomOf="@id/textview_name"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/textview_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:fontFamily="@font/apple_sd_gothic_neo_medium"
+                android:text="@{viewModel.description}"
+                android:visibility="@{viewModel.userInfo != null ? view.VISIBLE: view.GONE}"
+                tools:text="User Description"/>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

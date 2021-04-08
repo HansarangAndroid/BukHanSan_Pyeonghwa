@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentLogInBinding
-
+import dagger.hilt.android.AndroidEntryPoint
 
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
@@ -58,9 +60,8 @@ class LogInFragment : Fragment() {
             if(checkInputText()) {
                 Toast.makeText(requireContext(), "Please input email or password", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "Success input checking", Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(binding.root).navigate(R.id.action_logInFragment_to_homeFragment, )
-                Log.e("log", "id: ${viewModel.id.value}, password: ${viewModel.password.value}")
+                val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.id.value!!)
+                Navigation.findNavController(binding.root).navigate(action)
             }
         }
     }

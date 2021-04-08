@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.lecturesopt28th.SignUpFragmentArgs
+
 import com.example.lecturesopt28th.databinding.FragmentSignUpBinding
 
 

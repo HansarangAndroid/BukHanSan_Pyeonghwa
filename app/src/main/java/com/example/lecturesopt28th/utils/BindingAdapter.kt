@@ -3,11 +3,14 @@ package com.example.lecturesopt28th
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.lifecycle.MutableLiveData
+import coil.load
+import com.bumptech.glide.Glide
 
 @BindingAdapter("android:text")
 fun setText(view:TextView, content: MutableLiveData<String>) {
@@ -36,5 +39,13 @@ fun setTextWatcher(view: EditText, textAttrChanged: InverseBindingListener) {
             textAttrChanged?.onChange()
         }
     })
+}
 
+@BindingAdapter("uploadUrl")
+fun uploadUrl(imageView:ImageView, url: String?) {
+    if (url == null) {
+        imageView.load(R.drawable.ic_baseline_person_24)
+    } else {
+        imageView.load(url)
+    }
 }
