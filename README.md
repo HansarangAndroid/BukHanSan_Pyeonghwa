@@ -3,15 +3,12 @@
 <img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114044532-45f9ac80-98c2-11eb-8239-5f54d4a24ba4.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114061176-1aca8980-98d1-11eb-8d3e-647ab9a1d48d.gif" width = 25%></p>
 
 
-**🔥1주차 과제를 수행하면서 느낀점🔥**  
+### 🔥1주차 과제를 수행하면서 느낀점🔥  
 조금 더 심화된 학습을 위해 LiveData, Dagger Hilt, RxJava, Navigation을 이용하여 과제를 수행해보았습니다.  
 과제를 하면서 애매모호했던 지식도 검색을 해보면서 다시 학습할 수 있는 기회였습니다.  
-Navigation을 이용하여 Single Activity로 과제를 만들면서 Fragment 사용에 익숙해질 수 있었습니다:)  
+JetPack Navigation을 이용하여 UI변경 및 데이터 전달을 구현해보면서 Fragment 사용에 익숙해질 수 있었습니다:)  
 HomeFragment의 프로필은 Github user api를 이용하여 ID를 입력하면 가져올 수 있도록 하였습니다.  
 부족한 부분은 추후 과제를 수행하면서 리팩토링하겠습니다!  
-  
-### ✅ SingInFragment, LogInFragment, HomeFragment  
-JetPack Navigation을 활용한 UI 변경 및 데이터 전달 구현  
   
 ### 💡 navigation_graph.xml  
  nav_graph를 생성한 뒤 login, signup, home fragment를 추가해주었습니다.  
