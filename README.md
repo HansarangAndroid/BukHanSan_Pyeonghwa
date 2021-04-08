@@ -123,3 +123,4 @@ description.value = LoremIpsum.getInstance().getWords(1000)
   
 ### 🔁 생명주기에 따른 로그 출력  
 <img src = "https://user-images.githubusercontent.com/56873136/114056729-ece34600-98cc-11eb-82bb-fb7bfebefd33.JPG">
+
