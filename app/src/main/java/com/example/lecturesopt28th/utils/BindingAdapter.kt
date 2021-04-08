@@ -45,6 +45,7 @@ fun setTextWatcher(view: EditText, textAttrChanged: InverseBindingListener) {
 fun uploadUrl(imageView:ImageView, url: String?) {
     if (url == null) {
         imageView.load(R.drawable.ic_baseline_person_24)
+
     } else {
         imageView.load(url)
     }
