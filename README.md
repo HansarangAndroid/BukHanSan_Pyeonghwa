@@ -115,5 +115,14 @@ private fun initShowUser() {
 }
 ```  
   
+###📃Dummy Text LoremIpsum  
+프로필의 본인소개 스크롤뷰를 테스트하기 위해 LoremIpsum라이브러리로 랜던 단어를 가져왔습니다.
+user정보가 업데이트 될 때마다 decription.value를 설정해주었습니다.  
+
+```
+val description = MutableLiveData<String>()
+description.value = LoremIpsum.getInstance().getWords(1000)
+```  
+  
 ###🔁 생명주기에 따른 로그 출력  
 <img src = "https://user-images.githubusercontent.com/56873136/114056729-ece34600-98cc-11eb-82bb-fb7bfebefd33.JPG">
