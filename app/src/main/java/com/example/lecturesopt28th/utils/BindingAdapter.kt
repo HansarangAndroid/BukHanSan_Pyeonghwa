@@ -31,9 +31,7 @@ fun setTextWatcher(view: EditText, textAttrChanged: InverseBindingListener) {
     view.addTextChangedListener(object : TextWatcher{
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-        }
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         override fun afterTextChanged(p0: Editable?) {
             textAttrChanged?.onChange()
@@ -45,7 +43,6 @@ fun setTextWatcher(view: EditText, textAttrChanged: InverseBindingListener) {
 fun uploadUrl(imageView:ImageView, url: String?) {
     if (url == null) {
         imageView.load(R.drawable.ic_baseline_person_24)
-
     } else {
         imageView.load(url)
     }

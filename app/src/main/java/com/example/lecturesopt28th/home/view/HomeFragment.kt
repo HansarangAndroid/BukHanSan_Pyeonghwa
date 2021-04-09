@@ -14,6 +14,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.example.lecturesopt28th.databinding.FragmentHomeBinding
 import com.example.lecturesopt28th.home.viewmodel.HomeViewModel
+import com.example.lecturesopt28th.utils.UiState
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +39,7 @@ class HomeFragment : Fragment() {
 
         initShowUser()
         searchGitHubUser()
+        checkAuthenticatedUser()
     }
 
     private fun initShowUser() {
@@ -50,7 +53,6 @@ class HomeFragment : Fragment() {
             if (!binding.edittextIdGithub.text.isNullOrEmpty()) {
                 hideKeyboard()
                 viewModel.getUserAccessed()
-                checkAuthenticatedUser()
             } else {
                 Toast.makeText(requireContext(), "Input your github name", Toast.LENGTH_SHORT).show()
             }
@@ -58,11 +60,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkAuthenticatedUser() {
-        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            if (viewModel.userInfo.value == null) {
-                Toast.makeText(requireContext(), "Invalid Github user", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.d("Everthing is Perfect!!!", "---Gang---")
+        viewModel.uiState.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is UiState.Loading -> {
+                    binding.progressbar.visibility = View.VISIBLE
+                }
+                is UiState.Success -> {
+                    binding.progressbar.visibility = View.GONE
+                }
+                is UiState.Error -> {
+                    binding.progressbar.visibility = View.GONE
+                    Snackbar.make(binding.root, "Invalid Github user",Snackbar.LENGTH_SHORT).show()
+                }
             }
         })
     }
