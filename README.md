@@ -1,6 +1,6 @@
 ## First Week Assignment📚
 <p align="center">
-<img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131075-d8d72d00-993c-11eb-9dd0-1793285f9951.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131097-e391c200-993c-11eb-8e04-5d76fcfee64d.gif" width = 25%></p>
+<img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131075-d8d72d00-993c-11eb-9dd0-1793285f9951.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131678-007ac500-993e-11eb-9653-c24af15a9c10.gif" width = 25%></p>
 
 
 ### 🔥1주차 과제를 수행하면서 느낀점🔥  
