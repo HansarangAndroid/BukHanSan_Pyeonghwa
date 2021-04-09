@@ -113,8 +113,8 @@ private fun initShowUser() {
 ```  
   
 ### 📃 Dummy Text LoremIpsum  
-프로필의 본인소개 스크롤뷰를 테스트하기 위해 LoremIpsum 라이브러리로 랜덤 단어를 가져왔습니다.
-Lorem은 UI테스트를 위해 이미지, 텍스트 등 여러 타입의 더미데이터를 제공합니다.
+프로필의 본인소개 스크롤뷰를 테스트하기 위해 LoremIpsum 라이브러리로 랜덤 단어를 가져왔습니다.  
+Lorem은 UI테스트를 위해 이미지, 텍스트 등 여러 타입의 더미데이터를 제공합니다.  
 user정보가 업데이트 될 때마다 decription.value를 설정해주었습니다.  
 
 ```
