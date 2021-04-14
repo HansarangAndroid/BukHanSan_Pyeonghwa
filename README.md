@@ -1,6 +1,6 @@
 ## First Week Assignment📚
 <p align="center">
-<img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131075-d8d72d00-993c-11eb-9dd0-1793285f9951.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131097-e391c200-993c-11eb-8e04-5d76fcfee64d.gif" width = 25%></p>
+<img src = "https://user-images.githubusercontent.com/56873136/114044685-60338a80-98c2-11eb-968e-5e4cebc53bc3.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131075-d8d72d00-993c-11eb-9dd0-1793285f9951.gif" width = 25%> <img src = "https://user-images.githubusercontent.com/56873136/114131678-007ac500-993e-11eb-9653-c24af15a9c10.gif" width = 25%></p>
 
 
 ### 🔥1주차 과제를 수행하면서 느낀점🔥  
@@ -102,7 +102,7 @@ private fun checkInputText(): Boolean {
 GitHub User api를 이용하여 github의 Profile을 가져왔습니다.  
 Image Library는 Glide대신 Coil을 이용해보았습니다.  
 Coil은 Coroutine base의 경량화된 이미지 로딩 라이브러리입니다.  
-Glide에 비해 훨씬 가볍고 편하여 최근 인기가 높아졌다고 하여 이용해보았습니다.
+Glide에 비해 훨씬 가볍고 편해 최근 많이 사용하고 있는 라이브러리입니다.
 
 ```
 private fun initShowUser() {  
@@ -113,7 +113,8 @@ private fun initShowUser() {
 ```  
   
 ### 📃 Dummy Text LoremIpsum  
-프로필의 본인소개 스크롤뷰를 테스트하기 위해 LoremIpsum라이브러리로 랜던 단어를 가져왔습니다.
+프로필의 본인소개 스크롤뷰를 테스트하기 위해 LoremIpsum 라이브러리로 랜덤 단어를 가져왔습니다.  
+Lorem은 UI테스트를 위해 이미지, 텍스트 등 여러 타입의 더미데이터를 제공합니다.  
 user정보가 업데이트 될 때마다 decription.value를 설정해주었습니다.  
 
 ```
