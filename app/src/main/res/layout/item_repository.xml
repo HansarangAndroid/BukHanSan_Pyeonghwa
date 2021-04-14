@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="data"
+            type="com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/box_repository"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:id="@+id/textview_repository_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{data.name}"
+            android:textSize="20sp"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            tools:text="Name of Repository"/>
+
+        <TextView
+            android:id="@+id/textview_repostiory_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/black"
+            android:text="@{data.description}"
+            app:layout_constraintStart_toStartOf="@id/textview_repository_name"
+            app:layout_constraintTop_toBottomOf="@id/textview_repository_name"
+            android:textSize="17sp"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            tools:text="Repository Description"/>
+
+        <TextView
+            android:id="@+id/textview_repostiory_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:text="@{data.language.toString()}"
+            app:layout_constraintStart_toStartOf="@id/textview_repostiory_description"
+            app:layout_constraintTop_toBottomOf="@id/textview_repostiory_description"
+            android:textSize="14sp"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            tools:text="Repository Language"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

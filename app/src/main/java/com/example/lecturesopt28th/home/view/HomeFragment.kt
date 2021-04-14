@@ -11,7 +11,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentHomeBinding
 import com.example.lecturesopt28th.home.viewmodel.HomeViewModel
 import com.example.lecturesopt28th.utils.UiState
@@ -37,18 +40,31 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.userId.value = args.id
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initShowUser()
         searchGitHubUser()
         checkAuthenticatedUser()
+        goToRepository()
     }
 
     private fun initShowUser() {
-        viewModel.userId.value = args.id
         viewModel.getUserAccessed()
         binding.edittextIdGithub.clearFocus()
+    }
+
+    private fun goToRepository() {
+        binding.textviewGotoRepository.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToRepositoryFragment(viewModel.userId.value.toString())
+            findNavController().navigate(action)
+        }
+
     }
 
     private fun searchGitHubUser() {

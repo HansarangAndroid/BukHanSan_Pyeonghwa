@@ -14,6 +14,9 @@
         <argument
             android:name="id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_repositoryFragment"
+            app:destination="@id/repositoryFragment" />
     </fragment>
 
     <fragment
@@ -38,5 +41,14 @@
             app:popUpTo="@id/logInFragment"
             app:popUpToInclusive="true"/>
 
+    </fragment>
+    <fragment
+        android:id="@+id/repositoryFragment"
+        android:name="com.example.lecturesopt28th.githubrepo.view.RepositoryFragment"
+        android:label="fragment_repository"
+        tools:layout="@layout/fragment_repository" >
+        <argument
+            android:name="username"
+            app:argType="string" />
     </fragment>
 </navigation>
