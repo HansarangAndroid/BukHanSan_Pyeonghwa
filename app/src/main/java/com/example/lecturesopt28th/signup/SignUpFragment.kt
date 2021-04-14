@@ -14,14 +14,15 @@ import com.example.lecturesopt28th.databinding.FragmentSignUpBinding
 
 
 class SignUpFragment : Fragment(){
-    private lateinit var binding: FragmentSignUpBinding
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding ?: error("sign up binding error")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,5 +49,10 @@ class SignUpFragment : Fragment(){
         return (binding.edittextId.text.isNullOrEmpty()
                 || binding.edittextName.text.isNullOrEmpty()
                 || binding.edittextPassword.text.isNullOrEmpty())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

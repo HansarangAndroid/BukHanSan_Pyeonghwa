@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -18,14 +19,15 @@ import com.example.lecturesopt28th.databinding.FragmentLogInBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 class LogInFragment : Fragment() {
-    private lateinit var binding: FragmentLogInBinding
-    private val viewModel: LogInViewModel by activityViewModels()
+    private var _binding: FragmentLogInBinding? = null
+    private val binding get() = _binding ?: error("login fragment binding error")
+    private val viewModel by viewModels<LogInViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLogInBinding.inflate(inflater, container, false)
+        _binding = FragmentLogInBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -63,6 +65,8 @@ class LogInFragment : Fragment() {
             } else {
                 val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.id.value!!)
                 Navigation.findNavController(binding.root).navigate(action)
+                Log.e("id", viewModel.id.toString())
+                Log.e("id", viewModel.password.toString())
             }
         }
     }
