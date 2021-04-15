@@ -2,19 +2,15 @@ package com.example.lecturesopt28th.home.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentHomeBinding
 import com.example.lecturesopt28th.home.viewmodel.HomeViewModel
 import com.example.lecturesopt28th.utils.UiState
@@ -27,7 +23,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding ?: error("home fragment binding error")
 
     private val args: HomeFragmentArgs by navArgs()
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,20 +75,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkAuthenticatedUser() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer {
-            when(it) {
-                is UiState.Loading -> {
+        viewModel.userModel.observe(viewLifecycleOwner) {
+            when(it.status) {
+                UiState.Status.LOADING -> {
                     binding.progressbar.visibility = View.VISIBLE
                 }
-                is UiState.Success -> {
+                UiState.Status.SUCCESS -> {
                     binding.progressbar.visibility = View.GONE
                 }
-                is UiState.Error -> {
+                UiState.Status.ERROR -> {
                     binding.progressbar.visibility = View.GONE
                     Snackbar.make(binding.root, "Invalid Github user",Snackbar.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
     private fun hideKeyboard() {
         binding.edittextIdGithub.clearFocus()

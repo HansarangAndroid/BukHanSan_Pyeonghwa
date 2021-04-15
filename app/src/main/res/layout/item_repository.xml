@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
+
         <variable
             name="data"
             type="com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem" />
+        <variable
+            name="viewModel"
+            type="com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel" />
+
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_repository"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:background="@drawable/box_repository"
-        android:paddingHorizontal="10dp"
         android:paddingVertical="8dp">
 
         <TextView
@@ -20,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{data.name}"
@@ -29,16 +38,23 @@
 
         <TextView
             android:id="@+id/textview_repostiory_description"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:textColor="@color/black"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
             android:text="@{data.description}"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:visibility="@{data.description != null ? View.VISIBLE: View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/textview_repository_name"
             app:layout_constraintTop_toBottomOf="@id/textview_repository_name"
-            android:textSize="17sp"
-            android:fontFamily="@font/apple_sd_gothic_neo_bold"
-            tools:text="Repository Description"/>
+            tools:text="Repository Description" />
 
         <TextView
             android:id="@+id/textview_repostiory_language"
@@ -47,6 +63,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/black"
             android:text="@{data.language.toString()}"
+            android:visibility="@{data.language != null ? View.VISIBLE: View.GONE}"
             app:layout_constraintStart_toStartOf="@id/textview_repostiory_description"
             app:layout_constraintTop_toBottomOf="@id/textview_repostiory_description"
             android:textSize="14sp"

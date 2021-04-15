@@ -1,7 +1,9 @@
 package com.example.lecturesopt28th.githubrepo.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,9 +11,13 @@ import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
 
-class GithubRepoAdapter: ListAdapter<RepositoryModelItem, GithubRepoAdapter.GithubRepoViewHolder>(
+class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<RepositoryModelItem, GithubRepoAdapter.GithubRepoViewHolder>(
     githubDiffUtil
 ) {
+    interface ItemClickListener{
+        fun onItemCLickListener(view: View, position: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubRepoViewHolder {
         val binding = ItemRepositoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GithubRepoViewHolder(binding)
@@ -20,6 +26,10 @@ class GithubRepoAdapter: ListAdapter<RepositoryModelItem, GithubRepoAdapter.Gith
     override fun onBindViewHolder(holder: GithubRepoViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.setVariable(BR.data, item)
+        holder.binding.textviewRepostioryDescription.isSelected = true
+        holder.binding.constraintlayoutRepository.setOnClickListener {
+            listener.onItemCLickListener(holder.binding.root, position)
+        }
     }
 
     companion object {

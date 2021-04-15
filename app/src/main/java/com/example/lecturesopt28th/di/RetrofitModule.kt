@@ -36,14 +36,12 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
-        val interceptor = object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request = chain.request()
-                    .newBuilder()
-                    .build()
+        val interceptor = Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .build()
 
-                return chain.proceed(request)
-            }
+            chain.proceed(request)
         }
         return baseClient.newBuilder().addNetworkInterceptor(interceptor).build()
     }

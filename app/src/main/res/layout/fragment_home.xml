@@ -33,7 +33,7 @@
                 android:id="@+id/imageview_profile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                uploadUrl="@{viewModel.userInfo != null ? viewModel.userInfo.avatarUrl: null}" />
+                uploadUrl="@{viewModel.userModel.data != null ? viewModel.userModel.data.avatarUrl: null}" />
 
         </androidx.cardview.widget.CardView>
 
@@ -86,7 +86,8 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:layout_gravity="center_vertical"
-            android:text="@{String.format(@string/repository(viewModel.userInfo.name))}"
+            android:visibility="@{viewModel.userModel.data != null ? view.VISIBLE : view.GONE}"
+            android:text="@{String.format(@string/repository(viewModel.userModel.data.name))}"
             app:layout_constraintEnd_toEndOf="@+id/edittext_id_github"
             app:layout_constraintTop_toBottomOf="@id/edittext_id_github"
             tools:text="SSON_PEACE7"
@@ -110,7 +111,7 @@
                 android:fontFamily="@font/apple_sd_gothic_neo_medium"
                 android:text="@{viewModel.description}"
                 android:textSize="20sp"
-                android:visibility="@{viewModel.userInfo != null ? view.VISIBLE: view.GONE}"
+                android:visibility="@{viewModel.userModel.data != null ? view.VISIBLE: view.GONE}"
                 tools:text="User Description" />
         </ScrollView>
 

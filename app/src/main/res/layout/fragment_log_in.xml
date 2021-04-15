@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.lecturesopt28th.login.LogInViewModel" />
+            type="com.example.lecturesopt28th.login.viewmodel.LogInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".login.LogInFragment">
+        tools:context=".login.view.LogInFragment">
 
         <TextView
             android:id="@+id/textview_login"

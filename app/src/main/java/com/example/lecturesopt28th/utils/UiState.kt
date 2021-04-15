@@ -2,8 +2,21 @@ package com.example.lecturesopt28th.utils
 
 import com.example.lecturesopt28th.home.data.dto.SearchUserModel
 
-sealed class UiState {
-    object Loading: UiState()
-    data class Success(val data: SearchUserModel): UiState()
-    data class Error(val message: String): UiState()
+data class UiState<out T>(
+    val status: Status,
+    val data: T?,
+    val message: String?
+) {
+    enum class Status{
+        SUCCESS,
+        LOADING,
+        ERROR
+    }
+
+    companion object {
+        fun <T> success(data: T?): UiState<T>  = UiState(Status.SUCCESS, data, null)
+        fun <T> loading(data: T?): UiState<T>  = UiState(Status.LOADING, data, null)
+        fun <T> error(data: T?, message: String?): UiState<T> = UiState(Status.ERROR, data, message)
+    }
+
 }

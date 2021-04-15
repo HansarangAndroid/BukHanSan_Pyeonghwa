@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.example.lecturesopt28th.login.LogInFragment"
+        android:name="com.example.lecturesopt28th.login.view.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action

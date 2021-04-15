@@ -1,4 +1,4 @@
-package com.example.lecturesopt28th.login
+package com.example.lecturesopt28th.login.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
