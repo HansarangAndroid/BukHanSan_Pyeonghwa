@@ -25,10 +25,13 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
 
     override fun onBindViewHolder(holder: GithubRepoViewHolder, position: Int) {
         val item = getItem(position)
-        holder.binding.setVariable(BR.data, item)
-        holder.binding.textviewRepostioryDescription.isSelected = true
-        holder.binding.constraintlayoutRepository.setOnClickListener {
-            listener.onItemCLickListener(holder.binding.root, position)
+        holder.binding.run {
+            setVariable(BR.data, item)
+            textviewRepostioryDescription.isSelected = true
+            textviewRepositoryName.isSelected = true
+            constraintlayoutRepository.setOnClickListener {
+                listener.onItemCLickListener(holder.binding.root, position)
+            }
         }
     }
 

@@ -16,7 +16,7 @@ object Versions {
     const val glide_version = "4.12.0"
     const val coil_version = "1.1.1"
 
-    const val navigation_version = "2.3.4"
+    const val navigation_version = "2.3.5"
     const val fragment_ktx_version = "1.3.1"
     const val activity_ktx_version = "1.2.1"
     const val lifecycle_version = "2.2.0"

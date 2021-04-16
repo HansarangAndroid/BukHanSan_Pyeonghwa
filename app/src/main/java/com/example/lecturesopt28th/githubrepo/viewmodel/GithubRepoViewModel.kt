@@ -25,6 +25,8 @@ class GithubRepoViewModel @Inject constructor(
     val repositories: LiveData<UiState<GithubRepoModel>>
         get() = _repositories
 
+    val switchChecked = MutableLiveData<Boolean>()
+
     fun changeUserName(name: String){
         _userName.value = name
     }

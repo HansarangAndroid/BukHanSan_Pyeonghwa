@@ -8,11 +8,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.GridView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
+import com.example.lecturesopt28th.utils.HorizontalItemDecoration
+import com.example.lecturesopt28th.utils.ItemDecorationRemover
+import com.example.lecturesopt28th.utils.ItemDecorationRemover.removeItemDecorations
 import com.example.lecturesopt28th.utils.UiState
 import com.example.lecturesopt28th.utils.VerticalItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +40,8 @@ class RepositoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRepositoryBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -51,7 +62,9 @@ class RepositoryFragment : Fragment() {
 
         binding.recyclerviewRepository.run {
             adapter = githubAdapter
+            layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(VerticalItemDecoration(12))
+            setLayoutManager()
         }
     }
 
@@ -75,10 +88,32 @@ class RepositoryFragment : Fragment() {
         }
     }
 
-    fun moveGithubRepo(position:Int){
+    private fun moveGithubRepo(position:Int){
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(viewModel.repositories.value?.data?.get(position)?.clone_url)
         startActivity(intent)
+    }
+
+    private fun setLayoutManager() {
+
+        viewModel.switchChecked.observe(viewLifecycleOwner){ isChecked ->
+            when(isChecked) {
+                true ->
+                    binding.recyclerviewRepository.run {
+                        layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL,false)
+                        removeItemDecorations()
+                        addItemDecoration(HorizontalItemDecoration(10))
+                        addItemDecoration(VerticalItemDecoration(12))
+                    }
+                false ->{
+                    binding.recyclerviewRepository.run {
+                        layoutManager = LinearLayoutManager(requireContext())
+                        removeItemDecorations()
+                        addItemDecoration(VerticalItemDecoration(12))
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

@@ -2,12 +2,15 @@ package com.example.lecturesopt28th
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.databinding.InverseBindingMethod
 import androidx.lifecycle.MutableLiveData
 import coil.load
 import com.bumptech.glide.Glide
@@ -46,4 +49,30 @@ fun uploadUrl(imageView:ImageView, url: String?) {
     } else {
         imageView.load(url)
     }
+}
+
+
+
+@InverseBindingAdapter(attribute = "android:checked", event = "android:checkedAttrchanged")
+fun getIsChecked(switch: SwitchCompat): Boolean{
+    return switch.isChecked
+}
+
+@BindingAdapter("android:checked")
+fun setIsChecked(switch: SwitchCompat, isChecked: MutableLiveData<Boolean>){
+    if (isChecked == null) {
+        switch.isChecked = false
+    } else {
+        if (isChecked.value != switch.isChecked) switch.isChecked = isChecked.value!!
+    }
+
+}
+
+@BindingAdapter("android:checkedAttrchanged")
+fun setCheckedChangeListener(switch: SwitchCompat, listener: InverseBindingListener){
+    switch.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+        override fun onCheckedChanged(switch: CompoundButton?, isChecked: Boolean) {
+            listener.onChange()
+        }
+    })
 }

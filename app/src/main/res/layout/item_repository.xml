@@ -24,23 +24,28 @@
 
         <TextView
             android:id="@+id/textview_repository_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            app:layout_constraintWidth_percent="0.7"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="@{data.name}"
             android:textColor="@color/black"
-            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{data.name}"
-            android:textSize="20sp"
-            android:fontFamily="@font/apple_sd_gothic_neo_bold"
-            tools:text="Name of Repository"/>
+            tools:text="Name of Repository"
+            app:layout_constraintHorizontal_bias="0.2"/>
 
         <TextView
             android:id="@+id/textview_repostiory_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintWidth_percent="0.7"
             app:layout_constraintHorizontal_bias="0.0"
             android:ellipsize="marquee"
             android:fontFamily="@font/apple_sd_gothic_neo_bold"
@@ -68,8 +73,6 @@
             android:textSize="14sp"
             android:fontFamily="@font/apple_sd_gothic_neo_bold"
             tools:text="Repository Language"/>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
