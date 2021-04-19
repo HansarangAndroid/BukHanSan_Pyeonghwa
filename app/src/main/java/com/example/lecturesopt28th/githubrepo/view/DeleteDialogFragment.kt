@@ -1,5 +1,6 @@
 package com.example.lecturesopt28th.githubrepo.view
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spanned
@@ -18,6 +19,7 @@ class DeleteDialogFragment(private val callback: DeleteCallback): DialogFragment
     interface DeleteCallback{
         fun delete()
         fun cancel()
+        fun exit()
     }
 
     override fun onStart() {
@@ -53,6 +55,11 @@ class DeleteDialogFragment(private val callback: DeleteCallback): DialogFragment
             callback.cancel()
             dismiss()
         }
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        callback.exit()
     }
 
     override fun onDestroyView() {

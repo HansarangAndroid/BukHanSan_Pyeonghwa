@@ -137,12 +137,14 @@ class RepositoryFragment : Fragment() {
                     recoverRepository(position)
                 }.show()
             }
-
             override fun cancel() {
                 githubRepoAdapter.notifyItemChanged(position)
             }
-        })
+            override fun exit() {
+                githubRepoAdapter.notifyItemChanged(position)
 
+            }
+        })
         dialog.show(childFragmentManager, "Delete Dialog")
     }
 

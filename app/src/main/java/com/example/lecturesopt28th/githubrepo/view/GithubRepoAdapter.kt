@@ -35,15 +35,15 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
         }
     }
 
-    fun itemTouchCallback(holder: GithubRepoViewHolder){
-        holder.binding.repositoryDelete.setOnClickListener {
-            listener.deleteItem(holder.adapterPosition)
-        }
-
-        holder.binding.repositoryItem.setOnClickListener {
-            listener.onItemCLickListener(holder.binding.root, holder.adapterPosition)
-        }
-    }
+//    fun itemTouchCallback(holder: GithubRepoViewHolder){
+//        holder.binding.repositoryDelete.setOnClickListener {
+//            listener.deleteItem(holder.adapterPosition)
+//        }
+//
+//        holder.binding.repositoryItem.setOnClickListener {
+//            listener.onItemCLickListener(holder.binding.root, holder.adapterPosition)
+//        }
+//    }
 
     companion object {
         val githubDiffUtil = object : DiffUtil.ItemCallback<RepositoryModelItem>(){
