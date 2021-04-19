@@ -3,19 +3,21 @@ package com.example.lecturesopt28th.githubrepo.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
+import com.example.lecturesopt28th.utils.SwipeHelperCallback
 
-class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<RepositoryModelItem, GithubRepoAdapter.GithubRepoViewHolder>(
+class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<RepositoryModelItem, GithubRepoAdapter.GithubRepoViewHolder> (
     githubDiffUtil
 ) {
     interface ItemClickListener{
         fun onItemCLickListener(view: View, position: Int)
+        fun deleteItem(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubRepoViewHolder {
@@ -29,10 +31,8 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
             setVariable(BR.data, item)
             textviewRepostioryDescription.isSelected = true
             textviewRepositoryName.isSelected = true
-            repositoryItem.setOnClickListener {
-                listener.onItemCLickListener(holder.binding.root, position)
-            }
         }
+        holder.callback()
     }
 
     companion object {
@@ -53,5 +53,15 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
         }
     }
 
-    inner class GithubRepoViewHolder(val binding: ItemRepositoryBinding): RecyclerView.ViewHolder(binding.root)
+    inner class GithubRepoViewHolder(val binding: ItemRepositoryBinding): RecyclerView.ViewHolder(binding.root){
+        fun callback(){
+            binding.repositoryDelete.setOnClickListener {
+                listener.deleteItem(adapterPosition)
+            }
+
+            binding.repositoryItem.setOnClickListener {
+                listener.onItemCLickListener(binding.root, adapterPosition)
+            }
+        }
+    }
 }

@@ -9,7 +9,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-class SwipeHelperCallback(): ItemTouchHelper.Callback() {
+class SwipeHelperCallback: ItemTouchHelper.Callback() {
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null
     private var currentDx = 0f
@@ -28,6 +28,8 @@ class SwipeHelperCallback(): ItemTouchHelper.Callback() {
         target: RecyclerView.ViewHolder
     ) = false
 
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         currentDx = 0f
         getDefaultUIUtil().clearView(getView(viewHolder))
@@ -37,10 +39,9 @@ class SwipeHelperCallback(): ItemTouchHelper.Callback() {
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         viewHolder?.let {
             currentPosition = viewHolder.adapterPosition
-            getDefaultUIUtil().onSelected(getView(it))
+            getDefaultUIUtil().onSelected(getView(viewHolder))
         }
     }
-
 
     private fun clampViewPositionHorizontal(
         view: View,
@@ -59,17 +60,13 @@ class SwipeHelperCallback(): ItemTouchHelper.Callback() {
         return min(max(min, x), max)
     }
 
-    private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        return (viewHolder as GithubRepoAdapter.GithubRepoViewHolder).binding.repositoryItem
-    }
-
     override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
         return defaultValue * 10
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
         val isClamped = getTag(viewHolder)
-        setTag(viewHolder, !isClamped && currentDx <= -clamp)
+        setTag(viewHolder,!isClamped && currentDx <= -clamp)
         return 2f
     }
 
@@ -100,14 +97,16 @@ class SwipeHelperCallback(): ItemTouchHelper.Callback() {
         }
     }
 
-
-
-    private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped:Boolean) {
-        (viewHolder as GithubRepoAdapter.GithubRepoViewHolder).binding.root.tag = isClamped
+    private fun getView(holder: RecyclerView.ViewHolder): View {
+        return (holder as GithubRepoAdapter.GithubRepoViewHolder).binding.repositoryItem
     }
 
-    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean{
-        return (viewHolder as GithubRepoAdapter.GithubRepoViewHolder).binding.root.tag as? Boolean ?: false
+    private fun setTag(holder: RecyclerView.ViewHolder, isClamped: Boolean) {
+        holder.itemView.tag = isClamped
+    }
+
+    private fun getTag(holder: RecyclerView.ViewHolder): Boolean {
+        return holder.itemView.tag as? Boolean ?: false
     }
 
     fun setClamp(clamp: Float){
@@ -120,13 +119,8 @@ class SwipeHelperCallback(): ItemTouchHelper.Callback() {
         previousPosition?.let {
             val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
             getView(viewHolder).translationX = 0f
-            setTag(viewHolder, false)
+            setTag(viewHolder,false)
             previousPosition = null
         }
     }
-
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-    }
-
-
 }

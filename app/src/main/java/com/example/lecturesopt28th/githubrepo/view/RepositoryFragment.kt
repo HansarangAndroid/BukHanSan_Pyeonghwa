@@ -1,5 +1,6 @@
 package com.example.lecturesopt28th.githubrepo.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,18 +14,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
+import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
 import com.example.lecturesopt28th.utils.*
 import com.example.lecturesopt28th.utils.ItemDecorationRemover.removeItemDecorations
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class RepositoryFragment : Fragment() {
+class RepositoryFragment: Fragment() {
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding ?: error("repository fragment binding error")
     private val viewModel by viewModels<GithubRepoViewModel>()
-    private lateinit var githubAdapter: GithubRepoAdapter
+    private lateinit var githubRepoAdapter: GithubRepoAdapter
     private val args: RepositoryFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -46,14 +49,19 @@ class RepositoryFragment : Fragment() {
     }
 
     private fun initRepoRecyclerView() {
-        githubAdapter = GithubRepoAdapter(object : GithubRepoAdapter.ItemClickListener {
+        githubRepoAdapter = GithubRepoAdapter(object : GithubRepoAdapter.ItemClickListener {
             override fun onItemCLickListener(view: View, position: Int) {
                 moveGithubRepo(position)
+            }
+
+            override fun deleteItem(position: Int) {
+                viewModel.removeRepository(position)
+                githubRepoAdapter.notifyItemRemoved(position)
             }
         })
 
         binding.recyclerviewRepository.apply {
-            adapter = githubAdapter
+            adapter = githubRepoAdapter
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(ItemDecoration(12,0))
             setLayoutManager()
@@ -70,7 +78,7 @@ class RepositoryFragment : Fragment() {
 
                 UiState.Status.SUCCESS -> {
                     binding.progressbar.visibility = View.GONE
-                    githubAdapter.submitList(it.data)
+                    githubRepoAdapter.submitList(it.data)
                 }
 
                 UiState.Status.ERROR -> {
@@ -91,27 +99,26 @@ class RepositoryFragment : Fragment() {
         viewModel.switchChecked.observe(viewLifecycleOwner){ isChecked ->
             when(isChecked) {
                 true ->
-                    binding.recyclerviewRepository.run {
+                    binding.recyclerviewRepository.apply {
                         layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL,false)
                         removeItemDecorations()
                         addItemDecoration(ItemDecoration(12,10))
                     }
                 false ->{
-                    binding.recyclerviewRepository.run {
+                    binding.recyclerviewRepository.apply {
                         layoutManager = LinearLayoutManager(requireContext())
                         removeItemDecorations()
                         addItemDecoration(ItemDecoration(12,0))
                     }
                 }
             }
-            setItemTouchHelper()
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setItemTouchHelper() {
-        val swipeHelperCallback = SwipeHelperCallback().apply {
-            setClamp(180f)
-        }
+        val swipeHelperCallback = SwipeHelperCallback()
+        swipeHelperCallback.setClamp(180f)
 
         val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
