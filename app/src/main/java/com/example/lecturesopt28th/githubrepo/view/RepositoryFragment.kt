@@ -56,10 +56,10 @@ class RepositoryFragment : Fragment() {
                 moveGithubRepo(position)
             }
 
-            override fun deleteItem(position: Int) {
-                viewModel.removeRepository(position)
-                githubRepoAdapter.notifyItemRemoved(position)
-            }
+//            override fun onDeleteItem(position: Int) {
+//                viewModel.removeRepository(position)
+//                githubRepoAdapter.notifyItemRemoved(position)
+//            }
         })
 
         binding.recyclerviewRepository.apply {

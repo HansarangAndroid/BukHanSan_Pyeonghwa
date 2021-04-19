@@ -15,7 +15,7 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
 ) {
     interface ItemClickListener{
         fun onItemCLickListener(view: View, position: Int)
-        fun deleteItem(position: Int)
+//        fun onDeleteItem(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubRepoViewHolder {
@@ -32,6 +32,9 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
             setVariable(BR.data, item)
             textviewRepostioryDescription.isSelected = true
             textviewRepositoryName.isSelected = true
+            root.setOnClickListener {
+                listener.onItemCLickListener(this.root, position)
+            }
         }
     }
 
