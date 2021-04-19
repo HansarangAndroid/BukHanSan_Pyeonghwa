@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
-import com.example.lecturesopt28th.utils.SwipeHelperCallback
 
 class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<RepositoryModelItem, GithubRepoAdapter.GithubRepoViewHolder> (
     githubDiffUtil
@@ -22,6 +20,9 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubRepoViewHolder {
         val binding = ItemRepositoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//        val holder = GithubRepoViewHolder(binding)
+//        itemTouchCallback(holder)
+//        return holder
         return GithubRepoViewHolder(binding)
     }
 
@@ -32,7 +33,16 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
             textviewRepostioryDescription.isSelected = true
             textviewRepositoryName.isSelected = true
         }
-        holder.callback()
+    }
+
+    fun itemTouchCallback(holder: GithubRepoViewHolder){
+        holder.binding.repositoryDelete.setOnClickListener {
+            listener.deleteItem(holder.adapterPosition)
+        }
+
+        holder.binding.repositoryItem.setOnClickListener {
+            listener.onItemCLickListener(holder.binding.root, holder.adapterPosition)
+        }
     }
 
     companion object {
@@ -53,15 +63,5 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
         }
     }
 
-    inner class GithubRepoViewHolder(val binding: ItemRepositoryBinding): RecyclerView.ViewHolder(binding.root){
-        fun callback(){
-            binding.repositoryDelete.setOnClickListener {
-                listener.deleteItem(adapterPosition)
-            }
-
-            binding.repositoryItem.setOnClickListener {
-                listener.onItemCLickListener(binding.root, adapterPosition)
-            }
-        }
-    }
+    inner class GithubRepoViewHolder(val binding: ItemRepositoryBinding): RecyclerView.ViewHolder(binding.root)
 }

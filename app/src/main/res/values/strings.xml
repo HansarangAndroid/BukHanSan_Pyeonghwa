@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="repository" formatted="false"> %s"'s Repository"</string>
+    <string name="no_description">No Desciption</string>
+    <string name="no_language">no_language</string>
 </resources>

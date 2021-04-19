@@ -1,12 +1,14 @@
 package com.example.lecturesopt28th.githubrepo.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.widget.CompoundButton
+import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.lecturesopt28th.githubrepo.data.GithubRepoRepository
 import com.example.lecturesopt28th.githubrepo.dto.GithubRepoModel
+import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
 import com.example.lecturesopt28th.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,7 +27,7 @@ class GithubRepoViewModel @Inject constructor(
     val repositories: LiveData<UiState<GithubRepoModel>>
         get() = _repositories
 
-    val switchChecked = MutableLiveData<Boolean>()
+    val switchStatus = MutableLiveData<Boolean>()
 
     fun changeUserName(name: String){
         _userName.value = name
@@ -35,8 +37,29 @@ class GithubRepoViewModel @Inject constructor(
         _repositories.value?.data?.removeAt(position)
     }
 
-    fun changeSwitchChecked(isChecked: Boolean){
-        switchChecked.value = isChecked
+    fun insertRepository(position: Int, repo: RepositoryModelItem){
+        _repositories.value?.data?.add(position, repo)
+    }
+
+    fun remapRepositories(currentPosition:Int, targetPosition: Int){
+        val datas = _repositories.value?.data
+        if (currentPosition< targetPosition){
+            for (i in currentPosition until targetPosition){
+                datas?.set(i, datas.set(i+1, datas[i]) )
+            }
+        } else {
+            for (i in currentPosition..targetPosition+1){
+                datas?.set(i, datas.set(i-1, datas[i]))
+            }
+        }
+    }
+
+    fun checkSwitch(switchCompat: SwitchCompat){
+        switchCompat.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(button: CompoundButton?, isChecked: Boolean) {
+                switchStatus.value = isChecked
+            }
+        })
     }
 
     @SuppressLint("CheckResult")

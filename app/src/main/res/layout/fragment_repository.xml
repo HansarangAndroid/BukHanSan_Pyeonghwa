@@ -24,12 +24,11 @@
             android:text="Who's Repository?" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/togglebutton_layout"
+            android:id="@+id/switch_layout_manager"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            android:checked="@={viewModel.switchChecked}"
             android:thumb="@drawable/switch_thumb_selector"
             app:track="@drawable/switch_background_selector"
             app:layout_constraintTop_toTopOf="@id/textview_repository"

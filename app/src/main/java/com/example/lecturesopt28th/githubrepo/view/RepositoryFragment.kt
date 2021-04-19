@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
-import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
 import com.example.lecturesopt28th.utils.*
 import com.example.lecturesopt28th.utils.ItemDecorationRemover.removeItemDecorations
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class RepositoryFragment: Fragment() {
@@ -46,6 +44,8 @@ class RepositoryFragment: Fragment() {
         viewModel.getGithubRepo()
         initRepoRecyclerView()
         getGithubRepo()
+        callbackItemTouch()
+//        setItemTouchHelper()
     }
 
     private fun initRepoRecyclerView() {
@@ -63,9 +63,8 @@ class RepositoryFragment: Fragment() {
         binding.recyclerviewRepository.apply {
             adapter = githubRepoAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(ItemDecoration(12,0))
+            addItemDecoration(ItemDecoration(12,10))
             setLayoutManager()
-            setItemTouchHelper()
         }
     }
 
@@ -96,40 +95,64 @@ class RepositoryFragment: Fragment() {
     }
 
     private fun setLayoutManager() {
-        viewModel.switchChecked.observe(viewLifecycleOwner){ isChecked ->
+        viewModel.checkSwitch(binding.switchLayoutManager)
+        viewModel.switchStatus.observe(viewLifecycleOwner){ isChecked ->
             when(isChecked) {
                 true ->
                     binding.recyclerviewRepository.apply {
                         layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL,false)
-                        removeItemDecorations()
-                        addItemDecoration(ItemDecoration(12,10))
                     }
                 false ->{
                     binding.recyclerviewRepository.apply {
                         layoutManager = LinearLayoutManager(requireContext())
-                        removeItemDecorations()
-                        addItemDecoration(ItemDecoration(12,0))
                     }
                 }
             }
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setItemTouchHelper() {
-        val swipeHelperCallback = SwipeHelperCallback()
-        swipeHelperCallback.setClamp(180f)
-
-        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
-        itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
-
-        binding.recyclerviewRepository.run {
-            setOnTouchListener { _, _ ->
-                swipeHelperCallback.removePreviousClamp(this)
-                false
+    private fun callbackItemTouch() {
+        val itemTouchHelper = ItemTouchHelper(
+            ItemTouchCallback( object : ItemTouchListener{
+            override fun deleteItem(position: Int) {
+                val snackbar = Snackbar.make(binding.root, "Complete remove repository", Snackbar.LENGTH_SHORT)
+                snackbar.setAction("undo") {
+                    recoverRepository(position)
+                }.show()
+                githubRepoAdapter.notifyItemRemoved(position)
+                viewModel.removeRepository(position)
             }
-        }
+
+            override fun moveItem(pos1: Int, pos2: Int) {
+                viewModel.remapRepositories(pos1, pos2)
+                githubRepoAdapter.notifyItemMoved(pos1, pos2)
+            }
+        })
+        )
+        itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
     }
+
+    private fun recoverRepository(position: Int) {
+        val repository = githubRepoAdapter.currentList[position]
+        githubRepoAdapter.notifyItemInserted(position)
+        viewModel.insertRepository(position, repository)
+    }
+
+//    @SuppressLint("ClickableViewAccessibility")
+//    private fun setItemTouchHelper() {
+//        val swipeHelperCallback = SwipeHelperCallback()
+//        swipeHelperCallback.setClamp(180f)
+//
+//        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+//        itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
+//
+//        binding.recyclerviewRepository.run {
+//            setOnTouchListener { _, _ ->
+//                swipeHelperCallback.removePreviousClamp(this)
+//                false
+//            }
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
