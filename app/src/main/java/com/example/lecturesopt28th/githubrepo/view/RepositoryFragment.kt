@@ -1,6 +1,6 @@
 package com.example.lecturesopt28th.githubrepo.view
 
-import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,15 +13,17 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
 import com.example.lecturesopt28th.utils.*
-import com.example.lecturesopt28th.utils.ItemDecorationRemover.removeItemDecorations
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.notify
+import java.lang.NullPointerException
 
 @AndroidEntryPoint
-class RepositoryFragment: Fragment() {
+class RepositoryFragment : Fragment() {
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding ?: error("repository fragment binding error")
     private val viewModel by viewModels<GithubRepoViewModel>()
@@ -63,14 +65,14 @@ class RepositoryFragment: Fragment() {
         binding.recyclerviewRepository.apply {
             adapter = githubRepoAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(ItemDecoration(12,10))
+            addItemDecoration(ItemDecoration(12, 10))
             setLayoutManager()
         }
     }
 
     private fun getGithubRepo() {
-        viewModel.repositories.observe(viewLifecycleOwner){
-            when(it.status) {
+        viewModel.repositories.observe(viewLifecycleOwner) {
+            when (it.status) {
                 UiState.Status.LOADING -> {
                     binding.progressbar.visibility = View.VISIBLE
                 }
@@ -82,13 +84,14 @@ class RepositoryFragment: Fragment() {
 
                 UiState.Status.ERROR -> {
                     binding.progressbar.visibility = View.GONE
-                    Snackbar.make(binding.root, "failed to get repositories", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "failed to get repositories", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
     }
 
-    private fun moveGithubRepo(position:Int){
+    private fun moveGithubRepo(position: Int) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(viewModel.repositories.value?.data?.get(position)?.clone_url)
         startActivity(intent)
@@ -96,31 +99,22 @@ class RepositoryFragment: Fragment() {
 
     private fun setLayoutManager() {
         viewModel.checkSwitch(binding.switchLayoutManager)
-        viewModel.switchStatus.observe(viewLifecycleOwner){ isChecked ->
-            when(isChecked) {
-                true ->
-                    binding.recyclerviewRepository.apply {
-                        layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL,false)
+        viewModel.switchStatus.observe(viewLifecycleOwner) { isChecked ->
+            when (isChecked) {
+                true -> binding.recyclerviewRepository.apply {
+                        layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
                     }
-                false ->{
-                    binding.recyclerviewRepository.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
+                false -> binding.recyclerviewRepository.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
                     }
-                }
             }
         }
     }
 
     private fun callbackItemTouch() {
-        val itemTouchHelper = ItemTouchHelper(
-            ItemTouchCallback( object : ItemTouchListener{
+        val itemTouchCallback = ItemTouchCallback(object : ItemTouchListener {
             override fun deleteItem(position: Int) {
-                val snackbar = Snackbar.make(binding.root, "Complete remove repository", Snackbar.LENGTH_SHORT)
-                snackbar.setAction("undo") {
-                    recoverRepository(position)
-                }.show()
-                githubRepoAdapter.notifyItemRemoved(position)
-                viewModel.removeRepository(position)
+                showDeleteDialog(position)
             }
 
             override fun moveItem(pos1: Int, pos2: Int) {
@@ -128,8 +122,28 @@ class RepositoryFragment: Fragment() {
                 githubRepoAdapter.notifyItemMoved(pos1, pos2)
             }
         })
-        )
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
+    }
+
+    private fun showDeleteDialog(position: Int) {
+        val dialog = DeleteDialogFragment(object : DeleteDialogFragment.DeleteCallback {
+            override fun delete() {
+                githubRepoAdapter.notifyItemRemoved(position)
+                viewModel.removeRepository(position)
+                val snackbar = Snackbar.make(binding.root, "Repository removed Successfully", Snackbar.LENGTH_SHORT)
+                snackbar.setAction("Undo") {
+                    recoverRepository(position)
+                }.show()
+            }
+
+            override fun cancel() {
+                githubRepoAdapter.notifyItemChanged(position)
+            }
+        })
+
+        dialog.show(childFragmentManager, "Delete Dialog")
     }
 
     private fun recoverRepository(position: Int) {
@@ -154,8 +168,8 @@ class RepositoryFragment: Fragment() {
 //        }
 //    }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

@@ -3,10 +3,15 @@ package com.example.lecturesopt28th.utils
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemTouchCallback(private val listener: ItemTouchListener): ItemTouchHelper.SimpleCallback(
-    ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
-    ItemTouchHelper.LEFT
-) {
+class ItemTouchCallback(private val listener: ItemTouchListener): ItemTouchHelper.Callback() {
+    override fun getMovementFlags(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        return makeMovementFlags(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
+            ItemTouchHelper.LEFT)
+    }
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
@@ -17,13 +22,8 @@ class ItemTouchCallback(private val listener: ItemTouchListener): ItemTouchHelpe
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        listener.deleteItem(viewHolder.adapterPosition)
+        viewHolder?.adapterPosition?.let { listener.deleteItem(it) }
     }
-
-    override fun getSwipeDirs(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder
-    ): Int {
-        return ItemTouchHelper.START or ItemTouchHelper.END
-    }
+    override fun isLongPressDragEnabled() = true
+    override fun isItemViewSwipeEnabled() = true
 }

@@ -70,4 +70,9 @@ class LogInFragment : Fragment() {
         return (binding.edittextId.text.isNullOrEmpty()
                 || binding.edittextPassword.text.isNullOrEmpty())
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
