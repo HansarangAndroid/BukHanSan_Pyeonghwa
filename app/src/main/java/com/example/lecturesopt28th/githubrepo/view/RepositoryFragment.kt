@@ -3,27 +3,19 @@ package com.example.lecturesopt28th.githubrepo.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.GridView
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
-import com.example.lecturesopt28th.utils.HorizontalItemDecoration
-import com.example.lecturesopt28th.utils.ItemDecorationRemover
+import com.example.lecturesopt28th.utils.*
 import com.example.lecturesopt28th.utils.ItemDecorationRemover.removeItemDecorations
-import com.example.lecturesopt28th.utils.UiState
-import com.example.lecturesopt28th.utils.VerticalItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,11 +52,12 @@ class RepositoryFragment : Fragment() {
             }
         })
 
-        binding.recyclerviewRepository.run {
+        binding.recyclerviewRepository.apply {
             adapter = githubAdapter
             layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(VerticalItemDecoration(12))
+            addItemDecoration(ItemDecoration(12,0))
             setLayoutManager()
+            setItemTouchHelper()
         }
     }
 
@@ -95,23 +88,38 @@ class RepositoryFragment : Fragment() {
     }
 
     private fun setLayoutManager() {
-
         viewModel.switchChecked.observe(viewLifecycleOwner){ isChecked ->
             when(isChecked) {
                 true ->
                     binding.recyclerviewRepository.run {
                         layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL,false)
                         removeItemDecorations()
-                        addItemDecoration(HorizontalItemDecoration(10))
-                        addItemDecoration(VerticalItemDecoration(12))
+                        addItemDecoration(ItemDecoration(12,10))
                     }
                 false ->{
                     binding.recyclerviewRepository.run {
                         layoutManager = LinearLayoutManager(requireContext())
                         removeItemDecorations()
-                        addItemDecoration(VerticalItemDecoration(12))
+                        addItemDecoration(ItemDecoration(12,0))
                     }
                 }
+            }
+            setItemTouchHelper()
+        }
+    }
+
+    private fun setItemTouchHelper() {
+        val swipeHelperCallback = SwipeHelperCallback().apply {
+            setClamp(180f)
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
+
+        binding.recyclerviewRepository.run {
+            setOnTouchListener { _, _ ->
+                swipeHelperCallback.removePreviousClamp(this)
+                false
             }
         }
     }

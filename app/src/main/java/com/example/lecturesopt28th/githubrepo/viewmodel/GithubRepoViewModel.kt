@@ -31,6 +31,14 @@ class GithubRepoViewModel @Inject constructor(
         _userName.value = name
     }
 
+    fun removeRepository(position: Int) {
+        _repositories.value?.data?.removeAt(position)
+    }
+
+    fun changeSwitchChecked(isChecked: Boolean){
+        switchChecked.value = isChecked
+    }
+
     @SuppressLint("CheckResult")
     fun getGithubRepo() {
         _repositories.postValue(UiState.loading(null))

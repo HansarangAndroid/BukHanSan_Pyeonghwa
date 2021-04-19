@@ -29,7 +29,7 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
             setVariable(BR.data, item)
             textviewRepostioryDescription.isSelected = true
             textviewRepositoryName.isSelected = true
-            constraintlayoutRepository.setOnClickListener {
+            repositoryItem.setOnClickListener {
                 listener.onItemCLickListener(holder.binding.root, position)
             }
         }
