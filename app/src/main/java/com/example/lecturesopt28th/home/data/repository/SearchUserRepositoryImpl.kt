@@ -1,5 +1,6 @@
 package com.example.lecturesopt28th.home.data.repository
 
+import com.example.lecturesopt28th.home.data.dto.FollowersEntity
 import com.example.lecturesopt28th.home.data.dto.SearchUserModel
 import com.example.lecturesopt28th.home.data.source.SearchUserDataSource
 import io.reactivex.Single
@@ -10,4 +11,7 @@ class SearchUserRepositoryImpl @Inject constructor(
 ): SearchUserRepository {
     override fun getUserInfo(userName: String?): Single<SearchUserModel> =
         searchUserDataSource.getUserInfo(userName)
+
+    override fun getFollowers(userName: String?): Single<FollowersEntity> =
+        searchUserDataSource.getFollowers(userName)
 }

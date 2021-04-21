@@ -15,19 +15,16 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
 ) {
     interface ItemClickListener{
         fun onItemCLickListener(view: View, position: Int)
-//        fun onDeleteItem(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubRepoViewHolder {
         val binding = ItemRepositoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        val holder = GithubRepoViewHolder(binding)
-//        itemTouchCallback(holder)
-//        return holder
         return GithubRepoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GithubRepoViewHolder, position: Int) {
         val item = getItem(position)
+
         holder.binding.run {
             setVariable(BR.data, item)
             textviewRepostioryDescription.isSelected = true
@@ -37,16 +34,6 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
             }
         }
     }
-
-//    fun itemTouchCallback(holder: GithubRepoViewHolder){
-//        holder.binding.repositoryDelete.setOnClickListener {
-//            listener.deleteItem(holder.adapterPosition)
-//        }
-//
-//        holder.binding.repositoryItem.setOnClickListener {
-//            listener.onItemCLickListener(holder.binding.root, holder.adapterPosition)
-//        }
-//    }
 
     companion object {
         val githubDiffUtil = object : DiffUtil.ItemCallback<RepositoryModelItem>(){

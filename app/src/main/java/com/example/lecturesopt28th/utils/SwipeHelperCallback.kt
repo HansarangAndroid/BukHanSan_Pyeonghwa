@@ -8,7 +8,7 @@ import com.example.lecturesopt28th.githubrepo.view.GithubRepoAdapter
 import kotlin.math.max
 import kotlin.math.min
 
-
+//fixme: ViewHolder 재사용 관련 이슈 해결하고 SwipeHelperCallback 다시 붙여보기.
 class SwipeHelperCallback: ItemTouchHelper.Callback() {
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null

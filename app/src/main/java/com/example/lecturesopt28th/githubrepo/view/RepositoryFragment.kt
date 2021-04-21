@@ -1,5 +1,6 @@
 package com.example.lecturesopt28th.githubrepo.view
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -47,7 +48,6 @@ class RepositoryFragment : Fragment() {
         initRepoRecyclerView()
         getGithubRepo()
         callbackItemTouch()
-//        setItemTouchHelper()
     }
 
     private fun initRepoRecyclerView() {
@@ -55,11 +55,6 @@ class RepositoryFragment : Fragment() {
             override fun onItemCLickListener(view: View, position: Int) {
                 moveGithubRepo(position)
             }
-
-//            override fun onDeleteItem(position: Int) {
-//                viewModel.removeRepository(position)
-//                githubRepoAdapter.notifyItemRemoved(position)
-//            }
         })
 
         binding.recyclerviewRepository.apply {
@@ -76,12 +71,10 @@ class RepositoryFragment : Fragment() {
                 UiState.Status.LOADING -> {
                     binding.progressbar.visibility = View.VISIBLE
                 }
-
                 UiState.Status.SUCCESS -> {
                     binding.progressbar.visibility = View.GONE
                     githubRepoAdapter.submitList(it.data)
                 }
-
                 UiState.Status.ERROR -> {
                     binding.progressbar.visibility = View.GONE
                     Snackbar.make(binding.root, "failed to get repositories", Snackbar.LENGTH_SHORT)
@@ -116,7 +109,6 @@ class RepositoryFragment : Fragment() {
             override fun deleteItem(position: Int) {
                 showDeleteDialog(position)
             }
-
             override fun moveItem(pos1: Int, pos2: Int) {
                 viewModel.remapRepositories(pos1, pos2)
                 githubRepoAdapter.notifyItemMoved(pos1, pos2)
@@ -153,22 +145,6 @@ class RepositoryFragment : Fragment() {
         githubRepoAdapter.notifyItemInserted(position)
         viewModel.insertRepository(position, repository)
     }
-
-//    @SuppressLint("ClickableViewAccessibility")
-//    private fun setItemTouchHelper() {
-//        val swipeHelperCallback = SwipeHelperCallback()
-//        swipeHelperCallback.setClamp(180f)
-//
-//        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
-//        itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
-//
-//        binding.recyclerviewRepository.run {
-//            setOnTouchListener { _, _ ->
-//                swipeHelperCallback.removePreviousClamp(this)
-//                false
-//            }
-//        }
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,18 +1,21 @@
 package com.example.lecturesopt28th.home.view
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.lecturesopt28th.databinding.FragmentHomeBinding
 import com.example.lecturesopt28th.home.viewmodel.HomeViewModel
+import com.example.lecturesopt28th.utils.ItemDecoration
 import com.example.lecturesopt28th.utils.UiState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding ?: error("home fragment binding error")
-
+    private lateinit var followersAdapter: FollowersAdapter
     private val args: HomeFragmentArgs by navArgs()
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -48,11 +51,26 @@ class HomeFragment : Fragment() {
         searchGitHubUser()
         checkAuthenticatedUser()
         goToRepository()
+        upadateFollowers()
+        setFollowersAdapter()
     }
 
     private fun initShowUser() {
         viewModel.getUserAccessed()
         binding.edittextIdGithub.clearFocus()
+    }
+
+    private fun setFollowersAdapter() {
+        binding.recyclerviewFollowers.apply{
+            followersAdapter = FollowersAdapter{ item ->
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(item.html_url)
+                startActivity(intent)
+            }
+
+            adapter = followersAdapter
+            addItemDecoration(ItemDecoration(0,5))
+        }
     }
 
     private fun goToRepository() {
@@ -90,6 +108,24 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun upadateFollowers() {
+        viewModel.followers.observe(viewLifecycleOwner) {
+            when(it.status) {
+                UiState.Status.LOADING -> {
+                    binding.progressbarFollowers.visibility = View.VISIBLE
+                }
+                UiState.Status.SUCCESS -> {
+                    binding.progressbarFollowers.visibility = View.GONE
+                    followersAdapter.submitList(it.data)
+                }
+                UiState.Status.ERROR -> {
+                    binding.progressbarFollowers.visibility = View.GONE
+                }
+            }
+        }
+    }
+
     private fun hideKeyboard() {
         binding.edittextIdGithub.clearFocus()
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

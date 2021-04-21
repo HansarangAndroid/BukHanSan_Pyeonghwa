@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.lecturesopt28th.home.data.dto.FollowersEntity
 import com.example.lecturesopt28th.home.data.dto.SearchUserModel
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.utils.UiState
@@ -24,19 +25,40 @@ class HomeViewModel @Inject constructor(
     val userModel: LiveData<UiState<SearchUserModel>>
         get() = _userModel
 
+    private val _followers = MutableLiveData<UiState<FollowersEntity>>()
+    val followers: LiveData<UiState<FollowersEntity>>
+        get() = _followers
+
     val description = MutableLiveData<String>()
 
     @SuppressLint("CheckResult")
     fun getUserAccessed() {
+        getFollowers()
         _userModel.postValue(UiState.loading(null))
         searchUserRepository.getUserInfo(userId.value)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _userModel.postValue(UiState.success(it))
-                description.value = LoremIpsum.getInstance().getWords(1000)
+                description.value =
+                    LoremIpsum.getInstance()
+                    .getWords(500)
             }, {
                 _userModel.postValue(UiState.error(null, it.message))
+                it.printStackTrace()
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    fun getFollowers() {
+        _followers.postValue(UiState.loading(null))
+        searchUserRepository.getFollowers(userId.value)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                       _followers.postValue(UiState.success(it))
+            },{
+                _followers.postValue(UiState.error(null, it.message))
                 it.printStackTrace()
             })
     }

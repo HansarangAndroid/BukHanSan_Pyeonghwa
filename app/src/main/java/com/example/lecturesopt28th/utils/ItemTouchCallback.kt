@@ -24,6 +24,7 @@ class ItemTouchCallback(private val listener: ItemTouchListener): ItemTouchHelpe
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         viewHolder?.adapterPosition?.let { listener.deleteItem(it) }
     }
+
     override fun isLongPressDragEnabled() = true
     override fun isItemViewSwipeEnabled() = true
 }

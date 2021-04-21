@@ -11,14 +11,15 @@
         <variable
             name="viewModel"
             type="com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel" />
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/repository"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/repository_delete"
@@ -105,8 +106,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,4 +15,5 @@
     <color name="green">#0FFF36</color>
     <color name="peace_blue">#4D81DE</color>
     <color name="peace_yellow">#FFE899</color>
+    <color name ="colorControlHighlight">#BFBFBF</color>
 </resources>
