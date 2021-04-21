@@ -97,8 +97,9 @@ class SwipeHelperCallback: ItemTouchHelper.Callback() {
         }
     }
 
+    //fixme: 스와이프 시킬 뷰로 바꾸기
     private fun getView(holder: RecyclerView.ViewHolder): View {
-        return (holder as GithubRepoAdapter.GithubRepoViewHolder).binding.repositoryItem
+        return (holder as GithubRepoAdapter.GithubRepoViewHolder).binding.repository
     }
 
     private fun setTag(holder: RecyclerView.ViewHolder, isClamped: Boolean) {

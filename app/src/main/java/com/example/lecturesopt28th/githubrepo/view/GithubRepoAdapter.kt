@@ -24,7 +24,6 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
 
     override fun onBindViewHolder(holder: GithubRepoViewHolder, position: Int) {
         val item = getItem(position)
-
         holder.binding.run {
             setVariable(BR.data, item)
             textviewRepostioryDescription.isSelected = true

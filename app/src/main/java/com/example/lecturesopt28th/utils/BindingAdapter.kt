@@ -2,6 +2,7 @@ package com.example.lecturesopt28th
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.ImageView
@@ -75,4 +76,14 @@ fun setCheckedChangeListener(switch: SwitchCompat, listener: InverseBindingListe
             listener.onChange()
         }
     })
+}
+
+@BindingAdapter("clipToOutLine")
+fun clipToOutLine(view:View, clipToOutLine: Boolean){
+    view.clipToOutline = clipToOutLine
+}
+
+@BindingAdapter("setIsSelected")
+fun setIsSelected(textView: TextView, isSelected: Boolean){
+    textView.isSelected = isSelected
 }
