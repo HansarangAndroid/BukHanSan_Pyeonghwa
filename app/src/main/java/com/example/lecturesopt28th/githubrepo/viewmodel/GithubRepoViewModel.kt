@@ -55,11 +55,9 @@ class GithubRepoViewModel @Inject constructor(
     }
 
     fun checkSwitch(switchCompat: SwitchCompat){
-        switchCompat.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
-            override fun onCheckedChanged(button: CompoundButton?, isChecked: Boolean) {
-                switchStatus.value = isChecked
-            }
-        })
+        switchCompat.setOnCheckedChangeListener { _, isChecked ->
+            switchStatus.value = isChecked
+        }
     }
 
     @SuppressLint("CheckResult")

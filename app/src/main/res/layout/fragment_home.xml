@@ -58,7 +58,7 @@
             android:layout_marginHorizontal="20dp"
             android:background="@null"
             android:fontFamily="@font/apple_sd_gothic_neo_medium"
-            android:hint="Insert Your Git Hub Id"
+            android:hint="Github Id"
             android:inputType="text"
             android:text="@={viewModel.userId}"
             android:textSize="20sp"
