@@ -29,6 +29,7 @@
             android:layout_height="0dp"
             android:scaleX="0.8"
             android:scaleY="0.8"
+            android:checked="@={viewModel.switchStatus}"
             android:thumb="@drawable/switch_thumb_selector"
             app:track="@drawable/switch_background_selector"
             app:layout_constraintTop_toTopOf="@id/textview_repository"

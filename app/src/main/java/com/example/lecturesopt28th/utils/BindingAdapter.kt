@@ -52,8 +52,6 @@ fun uploadUrl(imageView:ImageView, url: String?) {
     }
 }
 
-
-
 @InverseBindingAdapter(attribute = "android:checked", event = "android:checkedAttrchanged")
 fun getIsChecked(switch: SwitchCompat): Boolean{
     return switch.isChecked
@@ -61,21 +59,13 @@ fun getIsChecked(switch: SwitchCompat): Boolean{
 
 @BindingAdapter("android:checked")
 fun setIsChecked(switch: SwitchCompat, isChecked: MutableLiveData<Boolean>){
-    if (isChecked == null) {
-        switch.isChecked = false
-    } else {
-        if (isChecked.value != switch.isChecked) switch.isChecked = isChecked.value!!
-    }
+    if (isChecked.value != switch.isChecked) switch.isChecked = isChecked.value!!
 
 }
 
 @BindingAdapter("android:checkedAttrchanged")
 fun setCheckedChangeListener(switch: SwitchCompat, listener: InverseBindingListener){
-    switch.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
-        override fun onCheckedChanged(switch: CompoundButton?, isChecked: Boolean) {
-            listener.onChange()
-        }
-    })
+    switch.setOnCheckedChangeListener { _ , _ -> listener.onChange() }
 }
 
 @BindingAdapter("clipToOutLine")

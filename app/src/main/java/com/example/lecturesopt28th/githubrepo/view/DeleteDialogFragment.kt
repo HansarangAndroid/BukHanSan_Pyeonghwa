@@ -50,7 +50,6 @@ class DeleteDialogFragment(private val callback: DeleteCallback): DialogFragment
             callback.delete()
             dismiss()
         }
-
         binding.buttonCancel.setOnClickListener {
             callback.cancel()
             dismiss()

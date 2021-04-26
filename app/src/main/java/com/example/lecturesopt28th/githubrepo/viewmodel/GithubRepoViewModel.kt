@@ -54,12 +54,6 @@ class GithubRepoViewModel @Inject constructor(
         }
     }
 
-    fun checkSwitch(switchCompat: SwitchCompat){
-        switchCompat.setOnCheckedChangeListener { _, isChecked ->
-            switchStatus.value = isChecked
-        }
-    }
-
     @SuppressLint("CheckResult")
     fun getGithubRepo() {
         _repositories.postValue(UiState.loading(null))

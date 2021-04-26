@@ -91,7 +91,6 @@ class RepositoryFragment : Fragment() {
     }
 
     private fun setLayoutManager() {
-        viewModel.checkSwitch(binding.switchLayoutManager)
         viewModel.switchStatus.observe(viewLifecycleOwner) { isChecked ->
             when (isChecked) {
                 true -> binding.recyclerviewRepository.apply {
@@ -114,7 +113,6 @@ class RepositoryFragment : Fragment() {
                 githubRepoAdapter.notifyItemMoved(pos1, pos2)
             }
         })
-
         val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerviewRepository)
     }
@@ -134,7 +132,6 @@ class RepositoryFragment : Fragment() {
             }
             override fun exit() {
                 githubRepoAdapter.notifyItemChanged(position)
-
             }
         })
         dialog.show(childFragmentManager, "Delete Dialog")
