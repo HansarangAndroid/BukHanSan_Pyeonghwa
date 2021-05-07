@@ -1,12 +1,9 @@
 package com.example.lecturesopt28th.home.data.dto
 
-import android.os.Parcel
-import android.os.Parcelable
+import com.example.lecturesopt28th.home.data.entity.UserModel
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class SearchUserModel(
+data class ResponseUser(
     @SerializedName("avatar_url")
     val avatarUrl: String,
     val bio: String,
@@ -58,4 +55,9 @@ data class SearchUserModel(
     @SerializedName("updated_at")
     val updatedAt: String,
     val url: String
-): Parcelable
+) {
+    fun toUserModel() = UserModel(
+        userImage = avatarUrl,
+        userName = name
+    )
+}

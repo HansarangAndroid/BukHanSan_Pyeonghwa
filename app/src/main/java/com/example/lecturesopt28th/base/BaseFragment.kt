@@ -1,4 +1,4 @@
-package com.example.lecturesopt28th
+package com.example.lecturesopt28th.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 
 abstract class BaseFragment <T: ViewDataBinding>: Fragment() {
     private var _binding:T? = null

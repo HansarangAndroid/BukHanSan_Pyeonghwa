@@ -56,8 +56,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_version}"
     implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation_version}"
 
@@ -78,8 +78,8 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:${Versions.glide_version}"
 
     //hilt
-    implementation "com.google.dagger:hilt-android:${Versions.dagger_version}"
-    kapt "com.google.dagger:hilt-android-compiler:${Versions.dagger_version}"
+    implementation "com.google.dagger:hilt-android:${Versions.hilt_version}"
+    kapt "com.google.dagger:hilt-android-compiler:${Versions.hilt_version}"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
 
@@ -100,4 +100,7 @@ dependencies {
 
     // LoremIpsum
     implementation "com.thedeanda:lorem:${Versions.lorem_version}"
+
+    //Annotations
+    implementation "com.android.support:support-annotations:${Versions.annotations_version}"
 }

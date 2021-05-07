@@ -1,6 +1,7 @@
 package com.example.lecturesopt28th.di
 
 import com.example.lecturesopt28th.BuildConfig.GITHUB_API_URL
+import com.example.lecturesopt28th.githubrepo.api.GithubRepoApiService
 import com.example.lecturesopt28th.home.api.SearchUserApiService
 import dagger.Module
 import dagger.Provides
@@ -35,14 +36,12 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
-        val interceptor = object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request = chain.request()
-                    .newBuilder()
-                    .build()
+        val interceptor = Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .build()
 
-                return chain.proceed(request)
-            }
+            chain.proceed(request)
         }
         return baseClient.newBuilder().addNetworkInterceptor(interceptor).build()
     }
@@ -61,4 +60,9 @@ object RetrofitModule {
     @Singleton
     fun provideGitHubApiService(retrofit: Retrofit): SearchUserApiService =
         retrofit.create(SearchUserApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideGithubRepoApiService(retrofit: Retrofit): GithubRepoApiService =
+        retrofit.create(GithubRepoApiService::class.java)
 }

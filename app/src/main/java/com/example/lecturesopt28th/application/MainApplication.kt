@@ -3,7 +3,7 @@ package com.example.lecturesopt28th.application
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
-@HiltAndroidApp
+@HiltAndroidApp()
 class MainApplication: Application() {
     override fun onCreate() {
         super.onCreate()

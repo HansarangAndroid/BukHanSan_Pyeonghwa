@@ -2,5 +2,7 @@
     <string name="app_name">LectureSopt28th</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="repository" formatted="false"> %s"'s Repository"</string>
+    <string name="followers" formatted="false"> %s"'s Followers"</string>
+    <string name="no_description">Not Found Desciption</string>
+    <string name="no_language">Not Found Language</string>
 </resources>

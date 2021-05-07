@@ -1,6 +1,5 @@
-package com.example.lecturesopt28th.login
+package com.example.lecturesopt28th.login.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,15 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentLogInBinding
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.lecturesopt28th.login.viewmodel.LogInViewModel
 
 class LogInFragment : Fragment() {
     private var _binding: FragmentLogInBinding? = null
@@ -63,10 +59,9 @@ class LogInFragment : Fragment() {
             if(checkInputText()) {
                 Toast.makeText(requireContext(), "Please input email or password", Toast.LENGTH_SHORT).show()
             } else {
-                val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.id.value!!)
+                val action =
+                    LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.id.value!!)
                 Navigation.findNavController(binding.root).navigate(action)
-                Log.e("id", viewModel.id.toString())
-                Log.e("id", viewModel.password.toString())
             }
         }
     }
@@ -74,5 +69,10 @@ class LogInFragment : Fragment() {
     private fun checkInputText(): Boolean {
         return (binding.edittextId.text.isNullOrEmpty()
                 || binding.edittextPassword.text.isNullOrEmpty())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
