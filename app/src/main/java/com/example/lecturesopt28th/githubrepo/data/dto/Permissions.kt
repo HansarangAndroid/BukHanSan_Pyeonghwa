@@ -1,4 +1,4 @@
-package com.example.lecturesopt28th.githubrepo.dto
+package com.example.lecturesopt28th.githubrepo.data.dto
 
 data class Permissions(
     val admin: Boolean,

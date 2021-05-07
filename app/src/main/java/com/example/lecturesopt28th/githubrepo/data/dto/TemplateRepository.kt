@@ -1,8 +1,4 @@
-package com.example.lecturesopt28th.githubrepo.dto
-
-import com.example.lecturesopt28th.githubrepo.dto.License
-import com.example.lecturesopt28th.githubrepo.dto.OwnerX
-import com.example.lecturesopt28th.githubrepo.dto.PermissionsX
+package com.example.lecturesopt28th.githubrepo.data.dto
 
 data class TemplateRepository(
     val allow_merge_commit: Boolean,

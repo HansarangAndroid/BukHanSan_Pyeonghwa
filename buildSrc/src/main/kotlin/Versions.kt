@@ -24,4 +24,6 @@ object Versions {
 
     const val lorem_version = "2.1"
 
+    const val annotations_version = "28.0.0"
+
 }

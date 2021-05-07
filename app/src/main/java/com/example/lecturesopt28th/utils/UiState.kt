@@ -1,7 +1,5 @@
 package com.example.lecturesopt28th.utils
 
-import com.example.lecturesopt28th.home.data.dto.SearchUserModel
-
 data class UiState<out T>(
     val status: Status,
     val data: T?,

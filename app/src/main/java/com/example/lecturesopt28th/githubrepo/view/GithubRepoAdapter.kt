@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemRepositoryBinding
-import com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem
+import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
 
-class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<RepositoryModelItem, GithubRepoAdapter.GithubRepoViewHolder> (
+class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<GithubRepositoryModel, GithubRepoAdapter.GithubRepoViewHolder> (
     githubDiffUtil
 ) {
     interface ItemClickListener{
@@ -35,17 +35,17 @@ class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<Re
     }
 
     companion object {
-        val githubDiffUtil = object : DiffUtil.ItemCallback<RepositoryModelItem>(){
+        val githubDiffUtil = object : DiffUtil.ItemCallback<GithubRepositoryModel>(){
             override fun areItemsTheSame(
-                oldItem: RepositoryModelItem,
-                newItem: RepositoryModelItem
+                oldItem: GithubRepositoryModel,
+                newItem: GithubRepositoryModel
             ): Boolean {
                 return oldItem.hashCode() == newItem.hashCode()
             }
 
             override fun areContentsTheSame(
-                oldItem: RepositoryModelItem,
-                newItem: RepositoryModelItem
+                oldItem: GithubRepositoryModel,
+                newItem: GithubRepositoryModel
             ): Boolean {
                 return oldItem == newItem
             }

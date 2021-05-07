@@ -1,6 +1,8 @@
-package com.example.lecturesopt28th.githubrepo.dto
+package com.example.lecturesopt28th.githubrepo.data.dto
 
-data class RepositoryModelItem(
+import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
+
+data class ResponseRepository(
     val archive_url: String,
     val archived: Boolean,
     val assignees_url: String,
@@ -43,7 +45,7 @@ data class RepositoryModelItem(
     val issues_url: String,
     val keys_url: String,
     val labels_url: String,
-    val language: Any,
+    val language: Any?,
     val languages_url: String,
     val merges_url: String,
     val milestones_url: String,
@@ -75,4 +77,11 @@ data class RepositoryModelItem(
     val url: String,
     val visibility: String,
     val watchers_count: Int
-)
+) {
+    fun toRepository() = GithubRepositoryModel (
+        repositoryName = name,
+        description = description,
+        language = language.toString(),
+        url = html_url
+    )
+}

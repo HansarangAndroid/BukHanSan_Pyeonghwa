@@ -100,4 +100,7 @@ dependencies {
 
     // LoremIpsum
     implementation "com.thedeanda:lorem:${Versions.lorem_version}"
+
+    //Annotations
+    implementation "com.android.support:support-annotations:${Versions.annotations_version}"
 }

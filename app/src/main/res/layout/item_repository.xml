@@ -9,7 +9,7 @@
 
         <variable
             name="data"
-            type="com.example.lecturesopt28th.githubrepo.dto.RepositoryModelItem" />
+            type="com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel" />
 
         <variable
             name="viewModel"
@@ -35,7 +35,7 @@
             android:fontFamily="@font/apple_sd_gothic_neo_bold"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
-            android:text="@{data.name}"
+            android:text="@{data.repositoryName}"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:includeFontPadding="false"
@@ -73,11 +73,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/apple_sd_gothic_neo_bold"
-            android:text="@{data.language.toString() != null ? data.language.toString() : @string/no_language}"
+            android:text="@{data.language != null ? data.language : @string/no_language}"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintStart_toStartOf="@id/textview_repostiory_description"
             app:layout_constraintTop_toBottomOf="@id/textview_repostiory_description"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Repository Language" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

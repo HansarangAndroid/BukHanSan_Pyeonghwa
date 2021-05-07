@@ -86,7 +86,7 @@ class RepositoryFragment : Fragment() {
 
     private fun moveGithubRepo(position: Int) {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(viewModel.repositories.value?.data?.get(position)?.clone_url)
+        intent.data = Uri.parse(viewModel.repositories.value?.data?.get(position)?.url)
         startActivity(intent)
     }
 

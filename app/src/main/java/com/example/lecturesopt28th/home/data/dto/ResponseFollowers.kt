@@ -1,6 +1,8 @@
-package com.example.lecturesopt28th.githubrepo.dto
+package com.example.lecturesopt28th.home.data.dto
 
-data class OwnerX(
+import com.example.lecturesopt28th.home.data.entity.FollowerModel
+
+data class ResponseFollowers(
     val avatar_url: String,
     val events_url: String,
     val followers_url: String,
@@ -19,4 +21,9 @@ data class OwnerX(
     val subscriptions_url: String,
     val type: String,
     val url: String
-)
+) {
+    fun toFollowerModel() = FollowerModel(
+        followerImage = avatar_url,
+        githubUrl = html_url
+    )
+}

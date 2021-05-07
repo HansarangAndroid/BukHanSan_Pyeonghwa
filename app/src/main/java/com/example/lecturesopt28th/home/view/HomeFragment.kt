@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
         binding.recyclerviewFollowers.apply{
             followersAdapter = FollowersAdapter{ item ->
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(item.html_url)
+                intent.data = Uri.parse(item.githubUrl)
                 startActivity(intent)
             }
 
@@ -78,7 +78,6 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToRepositoryFragment(viewModel.userId.value.toString())
             findNavController().navigate(action)
         }
-
     }
 
     private fun searchGitHubUser() {
@@ -93,7 +92,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkAuthenticatedUser() {
-        viewModel.userModel.observe(viewLifecycleOwner) {
+        viewModel.user.observe(viewLifecycleOwner) {
             when(it.status) {
                 UiState.Status.LOADING -> {
                     binding.progressbar.visibility = View.VISIBLE

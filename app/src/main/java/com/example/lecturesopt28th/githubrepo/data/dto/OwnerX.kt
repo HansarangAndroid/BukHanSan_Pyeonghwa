@@ -1,6 +1,6 @@
-package com.example.lecturesopt28th.home.data.dto
+package com.example.lecturesopt28th.githubrepo.data.dto
 
-data class FollowersEntityItem(
+data class OwnerX(
     val avatar_url: String,
     val events_url: String,
     val followers_url: String,

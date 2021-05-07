@@ -1,6 +1,5 @@
 package com.example.lecturesopt28th.home.view
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemFollowersBinding
-import com.example.lecturesopt28th.home.data.dto.FollowersEntityItem
+import com.example.lecturesopt28th.home.data.entity.FollowerModel
 
-class FollowersAdapter(private val listener: (FollowersEntityItem)-> Unit): ListAdapter<FollowersEntityItem, FollowersAdapter.FollowersViewHolder>(
+class FollowersAdapter(private val listener: (FollowerModel)-> Unit): ListAdapter<FollowerModel, FollowersAdapter.FollowersViewHolder>(
     diffCallback
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowersViewHolder {
@@ -29,19 +28,19 @@ class FollowersAdapter(private val listener: (FollowersEntityItem)-> Unit): List
     }
 
     companion object{
-        private val diffCallback = object : DiffUtil.ItemCallback<FollowersEntityItem>(){
+        private val diffCallback = object : DiffUtil.ItemCallback<FollowerModel>(){
             override fun areItemsTheSame(
-                oldItem: FollowersEntityItem,
-                newItem: FollowersEntityItem
+                oldItemResponse: FollowerModel,
+                newItemResponse: FollowerModel
             ): Boolean {
-                return oldItem.hashCode() == newItem.hashCode()
+                return oldItemResponse.hashCode() == newItemResponse.hashCode()
             }
 
             override fun areContentsTheSame(
-                oldItem: FollowersEntityItem,
-                newItem: FollowersEntityItem
+                oldItemResponse: FollowerModel,
+                newItemResponse: FollowerModel
             ): Boolean {
-                return oldItem == newItem
+                return oldItemResponse == newItemResponse
             }
         }
     }

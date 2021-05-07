@@ -1,8 +1,8 @@
 package com.example.lecturesopt28th.di
 
-import com.example.lecturesopt28th.githubrepo.data.GithubRepoDataSource
-import com.example.lecturesopt28th.githubrepo.data.GithubRepoRepository
-import com.example.lecturesopt28th.githubrepo.data.GithubRepoRepositoryImpl
+import com.example.lecturesopt28th.githubrepo.data.source.GithubRepoDataSource
+import com.example.lecturesopt28th.githubrepo.data.repository.GithubRepoRepository
+import com.example.lecturesopt28th.githubrepo.data.repository.GithubRepoRepositoryImpl
 import com.example.lecturesopt28th.home.data.source.SearchUserDataSource
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepositoryImpl

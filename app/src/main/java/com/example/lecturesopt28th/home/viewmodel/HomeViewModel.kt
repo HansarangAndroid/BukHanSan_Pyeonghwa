@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.lecturesopt28th.home.data.dto.FollowersEntity
-import com.example.lecturesopt28th.home.data.dto.SearchUserModel
+import com.example.lecturesopt28th.home.data.entity.FollowerModel
+import com.example.lecturesopt28th.home.data.entity.UserModel
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.utils.UiState
 import com.thedeanda.lorem.LoremIpsum
@@ -21,12 +21,12 @@ class HomeViewModel @Inject constructor(
 
     val userId = MutableLiveData<String?>()
 
-    private val _userModel = MutableLiveData<UiState<SearchUserModel>>()
-    val userModel: LiveData<UiState<SearchUserModel>>
+    private val _userModel = MutableLiveData<UiState<UserModel>>()
+    val user: LiveData<UiState<UserModel>>
         get() = _userModel
 
-    private val _followers = MutableLiveData<UiState<FollowersEntity>>()
-    val followers: LiveData<UiState<FollowersEntity>>
+    private val _followers = MutableLiveData<UiState<List<FollowerModel>>>()
+    val followers: LiveData<UiState<List<FollowerModel>>>
         get() = _followers
 
     val description = MutableLiveData<String>()
@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                       _followers.postValue(UiState.success(it))
+                _followers.postValue(UiState.success(it))
             },{
                 _followers.postValue(UiState.error(null, it.message))
                 it.printStackTrace()

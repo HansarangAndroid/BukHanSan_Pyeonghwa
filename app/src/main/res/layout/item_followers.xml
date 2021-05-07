@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.example.lecturesopt28th.home.data.dto.FollowersEntityItem" />
+            type="com.example.lecturesopt28th.home.data.entity.FollowerModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,28 +17,15 @@
         android:background="@drawable/box_follower"
         android:foreground="?attr/selectableItemBackground">
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:id="@+id/cardview_followers"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:cardCornerRadius="16dp"-->
-<!--            clipToOutLine="@{true}"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent">-->
-
             <ImageView
                 android:id="@+id/imageview_follower"
-                uploadUrl="@{data.avatar_url}"
+                uploadUrl="@{data.followerImage}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
-
-<!--        </androidx.cardview.widget.CardView>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
