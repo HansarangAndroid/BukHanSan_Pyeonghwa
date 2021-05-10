@@ -21,7 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.lecturesopt28th.HiltTestRunner"
         buildConfigField "String", "GITHUB_API_URL", properties['github_api_url']
     }
 
@@ -47,15 +47,11 @@ android {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_version}"
@@ -103,4 +99,41 @@ dependencies {
 
     //Annotations
     implementation "com.android.support:support-annotations:${Versions.annotations_version}"
+}
+
+dependencies {
+    // JUnit
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'junit:junit:4.13.1'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Core
+    testImplementation 'androidx.test:core:1.3.0'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'androidx.test:core:1.3.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+
+
+    // Unit Test Mock
+    androidTestImplementation("org.mockito:mockito-android:3.9.0")
+    testImplementation 'org.mockito:mockito-core:3.9.0'
+    testImplementation 'org.mockito:mockito-inline:3.9.0'
+    testImplementation 'org.robolectric:robolectric:4.4'
+
+
+
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test:rules:1.3.0'
+
+    // Fragment
+    androidTestImplementation "androidx.fragment:fragment-testing:1.2.5"
+
+    // Hilt
+    testImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
+    kaptTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
 }

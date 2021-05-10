@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     val userId = MutableLiveData<String?>()
 
     private val _userModel = MutableLiveData<UiState<UserModel>>()
-    val user: LiveData<UiState<UserModel>>
+    val userModel: LiveData<UiState<UserModel>>
         get() = _userModel
 
     private val _followers = MutableLiveData<UiState<List<FollowerModel>>>()

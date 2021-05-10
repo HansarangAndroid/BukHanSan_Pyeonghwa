@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding ?: error("home fragment binding error")
     private lateinit var followersAdapter: FollowersAdapter
     private val args: HomeFragmentArgs by navArgs()
-    private val viewModel by viewModels<HomeViewModel>()
+    val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkAuthenticatedUser() {
-        viewModel.user.observe(viewLifecycleOwner) {
+        viewModel.userModel.observe(viewLifecycleOwner) {
             when(it.status) {
                 UiState.Status.LOADING -> {
                     binding.progressbar.visibility = View.VISIBLE
