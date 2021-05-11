@@ -21,33 +21,33 @@ class GithubRepoViewModel @Inject constructor(
     val userName: LiveData<String>
         get() = _userName
 
-    private val _repositories = MutableLiveData<UiState<List<GithubRepositoryModel>>>()
-    val repositories: LiveData<UiState<List<GithubRepositoryModel>>>
+    private val _repositories = MutableLiveData<UiState<MutableList<GithubRepositoryModel>>>()
+    val repositories: LiveData<UiState<MutableList<GithubRepositoryModel>>>
         get() = _repositories
 
     val switchStatus = MutableLiveData<Boolean>()
 
-    fun changeUserName(name: String){
+    fun changeUserName(name: String) {
         _userName.value = name
     }
 
     fun removeRepository(position: Int) {
-        _repositories.value?.data?.toMutableList()?.removeAt(position)
+        _repositories.value?.data?.removeAt(position)
     }
 
-    fun insertRepository(position: Int, repo: GithubRepositoryModel){
-        _repositories.value?.data?.toMutableList()?.add(position, repo)
+    fun insertRepository(position: Int, repo: GithubRepositoryModel) {
+        _repositories.value?.data?.add(position, repo)
     }
 
-    fun remapRepositories(currentPosition:Int, targetPosition: Int){
-        val datas = _repositories.value?.data?.toMutableList()
-        if (currentPosition< targetPosition){
-            for (i in currentPosition until targetPosition){
-                datas?.set(i, datas.set(i+1, datas[i]) )
+    fun remapRepositories(currentPosition: Int, targetPosition: Int) {
+        val datas = _repositories.value?.data
+        if (currentPosition < targetPosition) {
+            for (i in currentPosition until targetPosition) {
+                datas?.set(i, datas.set(i + 1, datas[i]))
             }
         } else {
-            for (i in currentPosition..targetPosition+1){
-                datas?.set(i, datas.set(i-1, datas[i]))
+            for (i in currentPosition..targetPosition + 1) {
+                datas?.set(i, datas.set(i - 1, datas[i]))
             }
         }
     }
@@ -56,13 +56,15 @@ class GithubRepoViewModel @Inject constructor(
     fun getGithubRepo() {
         _repositories.postValue(UiState.loading(null))
         repository.getGithubRepo(userName.value)
+            .map { it.toMutableList() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                       _repositories.postValue(UiState.success(it))
+                _repositories.postValue(UiState.success(it))
             }, {
                 it.printStackTrace()
                 Log.e("why fucking error ", it.message.toString())
-                _repositories.postValue(UiState.error(null, it.message)) })
+                _repositories.postValue(UiState.error(null, it.message))
+            })
     }
 }

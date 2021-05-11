@@ -6,6 +6,9 @@ import com.example.lecturesopt28th.githubrepo.data.repository.GithubRepoReposito
 import com.example.lecturesopt28th.home.data.source.SearchUserDataSource
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepositoryImpl
+import com.example.lecturesopt28th.signup.SignUpDataSource
+import com.example.lecturesopt28th.signup.SignUpRepositoryImpl
+import com.example.lecturesopt28th.signup.SignUpRespository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +28,9 @@ object RepositoryModule {
     @Singleton
     fun provideGithubRepoRepository(githubRepoDataSource: GithubRepoDataSource): GithubRepoRepository =
         GithubRepoRepositoryImpl(githubRepoDataSource)
+
+    @Provides
+    @Singleton
+    fun provideSignUpRepoRepository(signUpDataSource: SignUpDataSource): SignUpRespository =
+        SignUpRepositoryImpl(signUpDataSource)
 }

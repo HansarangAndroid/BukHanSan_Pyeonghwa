@@ -23,6 +23,7 @@ android {
 
         testInstrumentationRunner "com.example.lecturesopt28th.HiltTestRunner"
         buildConfigField "String", "GITHUB_API_URL", properties['github_api_url']
+        buildConfigField "String", "SOPT_URL", properties['sopt_url']
     }
 
     buildTypes {

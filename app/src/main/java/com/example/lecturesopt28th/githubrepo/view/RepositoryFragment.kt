@@ -1,27 +1,24 @@
 package com.example.lecturesopt28th.githubrepo.view
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
+import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
 import com.example.lecturesopt28th.utils.*
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
-import java.lang.NullPointerException
 
 @AndroidEntryPoint
 class RepositoryFragment : Fragment() {
@@ -120,12 +117,18 @@ class RepositoryFragment : Fragment() {
     private fun showDeleteDialog(position: Int) {
         val dialog = DeleteDialogFragment(object : DeleteDialogFragment.DeleteCallback {
             override fun delete() {
-                githubRepoAdapter.notifyItemRemoved(position)
                 viewModel.removeRepository(position)
+                githubRepoAdapter.notifyItemRemoved(position)
                 val snackbar = Snackbar.make(binding.root, "Repository removed Successfully", Snackbar.LENGTH_SHORT)
                 snackbar.setAction("Undo") {
                     recoverRepository(position)
                 }.show()
+
+                snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>(){
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+
+                    }
+                })
             }
             override fun cancel() {
                 githubRepoAdapter.notifyItemChanged(position)
@@ -139,8 +142,8 @@ class RepositoryFragment : Fragment() {
 
     private fun recoverRepository(position: Int) {
         val repository = githubRepoAdapter.currentList[position]
+        viewModel.insertRepository(position,repository)
         githubRepoAdapter.notifyItemInserted(position)
-        viewModel.insertRepository(position, repository)
     }
 
     override fun onDestroyView() {

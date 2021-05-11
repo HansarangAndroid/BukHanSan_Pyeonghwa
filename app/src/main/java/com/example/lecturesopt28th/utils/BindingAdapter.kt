@@ -3,10 +3,7 @@ package com.example.lecturesopt28th
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
@@ -76,4 +73,5 @@ fun clipToOutLine(view:View, clipToOutLine: Boolean){
 @BindingAdapter("setIsSelected")
 fun setIsSelected(textView: TextView, isSelected: Boolean){
     textView.isSelected = isSelected
+
 }

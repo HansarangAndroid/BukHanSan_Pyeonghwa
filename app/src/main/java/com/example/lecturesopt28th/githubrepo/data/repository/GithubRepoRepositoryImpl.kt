@@ -10,6 +10,7 @@ class GithubRepoRepositoryImpl @Inject constructor(
 ): GithubRepoRepository {
     override fun getGithubRepo(username: String?): Single<List<GithubRepositoryModel>> {
         return dataSource.getGithubRepo(username).map { it.map { data ->
-            data.toRepository() } }
+            data.toRepository() }
+        }
     }
 }
