@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.lecturesopt28th.signup.SignUpFragment"
+        android:name="com.example.lecturesopt28th.signup.view.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
 

@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.lecturesopt28th.signup.SignUpViewModel" />
+            type="com.example.lecturesopt28th.signup.viewmodel.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".signup.SignUpFragment">
+        tools:context=".signup.view.SignUpFragment">
 
         <TextView
             android:id="@+id/textview_sign_up"

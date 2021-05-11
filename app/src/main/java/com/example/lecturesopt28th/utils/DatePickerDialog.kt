@@ -2,7 +2,6 @@ package com.example.lecturesopt28th.utils
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
 import com.example.lecturesopt28th.databinding.DialogDatepickerBinding
 
+//Fixme: GithubReository 삭제시 띄워주는 Dialog에도 같은 Dialog를 재활용할 수 있도록 Custom할 예정
 class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
     private var _binding: DialogDatepickerBinding? = null
     private val binding get() = _binding ?: throw error("dialog fragment error")
@@ -26,7 +26,7 @@ class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        settingPicker()
+        setPickerValue()
         setPickerCycle()
         dialogDismiss()
     }
@@ -36,7 +36,7 @@ class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
         super.onResume()
     }
 
-    //defaultDisplay Deprecated로 인한 version 처리
+    //defaultDisplay Deprecated로 인한 Version 처리
     private fun getDeviceSize() {
         var deviceWidth = 0
         var deviceHeight = 0
@@ -57,7 +57,6 @@ class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
             deviceWidth = outMetrics.widthPixels
             setDialogSize(deviceWidth, deviceHeight)
         }
-
     }
 
     private fun setDialogSize(deviceWidth: Int, deviceHeight:Int) {
@@ -75,16 +74,17 @@ class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
         }
     }
 
-    private fun settingPicker() {
-        setValues(binding.pickerYear, MIN_YEAR, MAX_YEAR)
-        setValues(binding.pickerMonth, MIN_MONTH, MAX_MONTH)
-        setValues(binding.pickerDay, MIN_DAY, MAX_DAY)
-    }
+    private fun setPickerValue() {
+        val pickerMap: Map<Int, NumberPicker>
+        = mapOf(0 to binding.pickerYear, 1 to binding.pickerMonth, 2 to binding.pickerDay)
 
-    private fun setValues(picker: NumberPicker, min: Int, max: Int) {
-        picker.apply {
-            minValue = min
-            maxValue = max
+        pickerMap.forEach{ pickeritem ->
+            val picker = DATE.findType(pickeritem.key)
+            pickeritem.value.run {
+                maxValue = picker.MAX
+                minValue = picker.MIN
+                value = picker.INIT
+            }
         }
     }
 
@@ -93,8 +93,22 @@ class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
             val year = binding.pickerYear.value.toString()
             val month = binding.pickerMonth.value.toString()
             val day = binding.pickerDay.value.toString()
-            listener?.applyDate(year, month, day)
+            listener.applyDate(year, month, day)
             dismiss()
+        }
+    }
+
+    enum class DATE(val type: Int?, val MIN: Int, val MAX: Int, val INIT: Int) {
+        YEAR(0,1910, 2021,1990),
+        MONTH(1,1,12,6),
+        DAY(2,1,31,15);
+
+        companion object {
+            fun findType(type: Int): DATE {
+                return values().find {
+                    it.type == type
+                } ?: throw IllegalArgumentException("--picker type error--")
+            }
         }
     }
 
@@ -103,12 +117,4 @@ class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
         _binding = null
     }
 
-    companion object {
-        private const val MAX_YEAR = 2021
-        private const val MIN_YEAR = 1910
-        private const val MAX_MONTH = 12
-        private const val MIN_MONTH = 12
-        private const val MAX_DAY = 31
-        private const val MIN_DAY = 1
-    }
 }

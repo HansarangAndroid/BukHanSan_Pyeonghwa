@@ -11,31 +11,30 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.lecturesopt28th.R
+import com.example.lecturesopt28th.base.BindingFragment
 import com.example.lecturesopt28th.databinding.FragmentLogInBinding
 import com.example.lecturesopt28th.login.viewmodel.LogInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LogInFragment : Fragment() {
-    private var _binding: FragmentLogInBinding? = null
-    private val binding get() = _binding ?: error("login fragment binding error")
+class LogInFragment : BindingFragment<FragmentLogInBinding>() {
     private val viewModel by viewModels<LogInViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLogInBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentLogInBinding {
+        return FragmentLogInBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        login()
+
         goToSignUp()
         getSafeArgs()
+        getInputStatus()
     }
 
     private fun getSafeArgs() {
@@ -44,33 +43,33 @@ class LogInFragment : Fragment() {
                 viewModel.email.value = it
             }
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("password")
-            ?.observe(viewLifecycleOwner){
+            ?.observe(viewLifecycleOwner) {
                 viewModel.password.value = it
             }
     }
 
     private fun goToSignUp() {
         binding.textviewGotoSignup.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_logInFragment_to_signUpFragment)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_logInFragment_to_signUpFragment)
+        }
+    }
+
+    private fun getInputStatus() {
+        binding.buttonLogin.setOnClickListener {
+            viewModel.getLoginResult()
+            login()
         }
     }
 
     private fun login() {
-        binding.buttonLogin.setOnClickListener {
-            viewModel.login()
-            viewModel.loginSuccess.observe(viewLifecycleOwner){
-                if (it) {
-                    val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.email.value!!)
-                    Navigation.findNavController(binding.root).navigate(action)
-                } else {
-                    Toast.makeText(requireContext(), "Please check email or password", Toast.LENGTH_SHORT).show()
-                }
+        viewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.email.value!!)
+                Navigation.findNavController(binding.root).navigate(action)
+            } else {
+                Toast.makeText(requireContext(), "Please check email or password", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

@@ -41,23 +41,17 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.userId.value = args.id
+//        viewModel.userId.value = args.id
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initShowUser()
         searchGitHubUser()
         checkAuthenticatedUser()
         goToRepository()
         upadateFollowers()
         setFollowersAdapter()
-    }
-
-    private fun initShowUser() {
-        viewModel.getUserAccessed()
-        binding.edittextIdGithub.clearFocus()
     }
 
     private fun setFollowersAdapter() {
@@ -117,6 +111,8 @@ class HomeFragment : Fragment() {
                 UiState.Status.SUCCESS -> {
                     binding.progressbarFollowers.visibility = View.GONE
                     followersAdapter.submitList(it.data)
+                    binding.appbar.setExpanded(false)
+                    binding.scrollView2.smoothScrollTo(0, 0)
                 }
                 UiState.Status.ERROR -> {
                     binding.progressbarFollowers.visibility = View.GONE

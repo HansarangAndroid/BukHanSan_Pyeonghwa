@@ -1,26 +1,22 @@
 package com.example.lecturesopt28th.di
 
-import com.example.lecturesopt28th.BuildConfig
 import com.example.lecturesopt28th.BuildConfig.GITHUB_API_URL
 import com.example.lecturesopt28th.BuildConfig.SOPT_URL
 import com.example.lecturesopt28th.githubrepo.api.GithubRepoApiService
 import com.example.lecturesopt28th.home.api.SearchUserApiService
-import com.example.lecturesopt28th.login.LoginApiService
-import com.example.lecturesopt28th.signup.SignUpApiService
+import com.example.lecturesopt28th.login.api.LoginApiService
+import com.example.lecturesopt28th.signup.api.SignUpApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -103,5 +99,4 @@ object RetrofitModule {
     @Singleton
     fun provideLoginApiService(@SoptRetrofit retrofit: Retrofit): LoginApiService =
         retrofit.create(LoginApiService::class.java)
-
 }

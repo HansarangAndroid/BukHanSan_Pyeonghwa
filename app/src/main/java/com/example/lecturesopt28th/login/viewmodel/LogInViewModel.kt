@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.lecturesopt28th.login.LoginRepository
-import com.example.lecturesopt28th.login.RequestLogin
+import com.example.lecturesopt28th.login.repository.LoginRepository
+import com.example.lecturesopt28th.login.data.dto.RequestLogin
+import com.example.lecturesopt28th.utils.InputChecker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,9 +23,18 @@ class LogInViewModel @Inject constructor(
     val loginSuccess: LiveData<Boolean>
         get() = _loginSuccess
 
-    //Todo: Input Checker만들어서 Login message 상세하게 처리하기
+    //Todo: Input Check
+    private val _isValueEmpty = MutableLiveData<Boolean>()
+    val isValueEmpty: LiveData<Boolean>
+        get() = _isValueEmpty
+
+    private fun getBlankValue(): Boolean {
+        val list = listOf(email, password)
+        return InputChecker.checkBlank(list) <= 0
+    }
+
     @SuppressLint("CheckResult")
-    fun login() {
+    fun getLoginResult() {
         repository.login(
             RequestLogin(
                 email.value,
