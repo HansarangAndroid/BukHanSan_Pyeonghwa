@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/apple_sd_gothic_neo_bold"
             android:text="Apply"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             app:layout_constraintEnd_toEndOf="@id/picker_day"
             app:layout_constraintStart_toStartOf="@id/picker_year"
             app:layout_constraintTop_toBottomOf="@id/picker_month" />

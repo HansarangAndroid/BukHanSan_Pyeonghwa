@@ -13,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.databinding.FragmentLogInBinding
 import com.example.lecturesopt28th.login.viewmodel.LogInViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LogInFragment : Fragment() {
     private var _binding: FragmentLogInBinding? = null
     private val binding get() = _binding ?: error("login fragment binding error")
@@ -24,23 +26,22 @@ class LogInFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLogInBinding.inflate(inflater, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         login()
         goToSignUp()
         getSafeArgs()
     }
 
     private fun getSafeArgs() {
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("id")
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("email")
             ?.observe(viewLifecycleOwner) {
-                viewModel.id.value = it
+                viewModel.email.value = it
             }
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("password")
             ?.observe(viewLifecycleOwner){
@@ -56,19 +57,16 @@ class LogInFragment : Fragment() {
 
     private fun login() {
         binding.buttonLogin.setOnClickListener {
-            if(checkInputText()) {
-                Toast.makeText(requireContext(), "Please input email or password", Toast.LENGTH_SHORT).show()
-            } else {
-                val action =
-                    LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.id.value!!)
-                Navigation.findNavController(binding.root).navigate(action)
+            viewModel.login()
+            viewModel.loginSuccess.observe(viewLifecycleOwner){
+                if (it) {
+                    val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.email.value!!)
+                    Navigation.findNavController(binding.root).navigate(action)
+                } else {
+                    Toast.makeText(requireContext(), "Please check email or password", Toast.LENGTH_SHORT).show()
+                }
             }
         }
-    }
-
-    private fun checkInputText(): Boolean {
-        return (binding.edittextId.text.isNullOrEmpty()
-                || binding.edittextPassword.text.isNullOrEmpty())
     }
 
     override fun onDestroyView() {

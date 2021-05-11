@@ -6,6 +6,9 @@ import com.example.lecturesopt28th.githubrepo.data.repository.GithubRepoReposito
 import com.example.lecturesopt28th.home.data.source.SearchUserDataSource
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepositoryImpl
+import com.example.lecturesopt28th.login.LoginDataSource
+import com.example.lecturesopt28th.login.LoginRepository
+import com.example.lecturesopt28th.login.LoginRepositoryImpl
 import com.example.lecturesopt28th.signup.SignUpDataSource
 import com.example.lecturesopt28th.signup.SignUpRepositoryImpl
 import com.example.lecturesopt28th.signup.SignUpRespository
@@ -33,4 +36,8 @@ object RepositoryModule {
     @Singleton
     fun provideSignUpRepoRepository(signUpDataSource: SignUpDataSource): SignUpRespository =
         SignUpRepositoryImpl(signUpDataSource)
+
+    @Provides
+    @Singleton
+    fun provideLoginRepository(loginDataSource: LoginDataSource): LoginRepository = LoginRepositoryImpl(loginDataSource)
 }

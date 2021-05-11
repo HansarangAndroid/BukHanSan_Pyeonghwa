@@ -5,6 +5,7 @@ import com.example.lecturesopt28th.BuildConfig.GITHUB_API_URL
 import com.example.lecturesopt28th.BuildConfig.SOPT_URL
 import com.example.lecturesopt28th.githubrepo.api.GithubRepoApiService
 import com.example.lecturesopt28th.home.api.SearchUserApiService
+import com.example.lecturesopt28th.login.LoginApiService
 import com.example.lecturesopt28th.signup.SignUpApiService
 import dagger.Module
 import dagger.Provides
@@ -97,4 +98,10 @@ object RetrofitModule {
     @Singleton
     fun provideSignUpApiService(@SoptRetrofit retrofit: Retrofit): SignUpApiService =
         retrofit.create(SignUpApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLoginApiService(@SoptRetrofit retrofit: Retrofit): LoginApiService =
+        retrofit.create(LoginApiService::class.java)
+
 }

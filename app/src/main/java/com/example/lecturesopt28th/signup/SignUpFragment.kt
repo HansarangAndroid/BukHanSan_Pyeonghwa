@@ -6,15 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 
 import com.example.lecturesopt28th.databinding.FragmentSignUpBinding
-import com.example.lecturesopt28th.utils.CustomDialog
+import com.example.lecturesopt28th.utils.DatePickerDialog
 import com.example.lecturesopt28th.utils.DialogInterface
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.RuntimeException
@@ -46,7 +44,7 @@ class SignUpFragment : Fragment(){
 
     private fun selectBirthday() {
         binding.edittextBirth.setOnClickListener {
-            val datePicker = CustomDialog(object : DialogInterface{
+            val datePicker = DatePickerDialog(object : DialogInterface{
                 override fun applyDate(year: String, month: String, day: String) {
                     binding.edittextBirth.setText("$year - $month - $day")
                 }
@@ -71,11 +69,10 @@ class SignUpFragment : Fragment(){
             viewModel.signUp()
             viewModel.isSuccessed.observe(viewLifecycleOwner){ isSuccessed ->
                 if (isSuccessed) {
-                    Toast.makeText(requireContext(), "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Success Sign Up", Toast.LENGTH_SHORT).show()
                     goToLoginView()
                 } else {
-                    Log.e("dddd", "${viewModel.birthday.value} // ${viewModel.email.value} // ${viewModel.password.value} // ${viewModel.sex.value} // ${viewModel.password.value}")
-                    Toast.makeText(requireContext(), "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Sign Up failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -84,7 +81,7 @@ class SignUpFragment : Fragment(){
     private fun goToLoginView() {
         val email = binding.edittextEmail.text.toString()
         val password = binding.edittextPassword.text.toString()
-        findNavController().previousBackStackEntry?.savedStateHandle?.set("id", email)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set("email", email)
         findNavController().previousBackStackEntry?.savedStateHandle?.set("password", password)
         Navigation.findNavController(binding.root).popBackStack()
     }

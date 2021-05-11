@@ -6,6 +6,8 @@ import com.example.lecturesopt28th.githubrepo.data.source.GithubRepoDataSourceIm
 import com.example.lecturesopt28th.home.api.SearchUserApiService
 import com.example.lecturesopt28th.home.data.source.SearchUserDataSource
 import com.example.lecturesopt28th.home.data.source.SearchUserDataSourceImpl
+import com.example.lecturesopt28th.login.LoginApiService
+import com.example.lecturesopt28th.login.LoginDataSource
 import com.example.lecturesopt28th.signup.SignUpApiService
 import com.example.lecturesopt28th.signup.SignUpDataSource
 import dagger.Module
@@ -27,5 +29,9 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideSoptDataSource(signUpApiService: SignUpApiService) = SignUpDataSource(signUpApiService)
+    fun provideSignUpDataSource(signUpApiService: SignUpApiService) = SignUpDataSource(signUpApiService)
+
+    @Provides
+    @Singleton
+    fun provideLoginDataSource(loginApiService: LoginApiService) = LoginDataSource(loginApiService)
 }

@@ -2,14 +2,16 @@ package com.example.lecturesopt28th.utils
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
 import com.example.lecturesopt28th.databinding.DialogDatepickerBinding
 
-class CustomDialog(val listener: DialogInterface): DialogFragment() {
+class DatePickerDialog(val listener: DialogInterface): DialogFragment() {
     private var _binding: DialogDatepickerBinding? = null
     private val binding get() = _binding ?: throw error("dialog fragment error")
 
@@ -25,7 +27,7 @@ class CustomDialog(val listener: DialogInterface): DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         settingPicker()
-        settingValue()
+        setPickerCycle()
         dialogDismiss()
     }
 
@@ -34,33 +36,38 @@ class CustomDialog(val listener: DialogInterface): DialogFragment() {
         super.onResume()
     }
 
+    //defaultDisplay Deprecated로 인한 version 처리
     private fun getDeviceSize() {
+        var deviceWidth = 0
+        var deviceHeight = 0
         val outMetrics = DisplayMetrics()
-        var width = 0
-        var height = 0
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             val display = requireActivity().display
             display?.getRealMetrics(outMetrics)
-            height = outMetrics.heightPixels
-            width = outMetrics.widthPixels
-
+            deviceHeight = outMetrics.heightPixels
+            deviceWidth = outMetrics.widthPixels
+            setDialogSize(deviceWidth, deviceHeight)
         } else {
             @Suppress("DEPRECATION")
             val display = requireActivity().windowManager.defaultDisplay
             @Suppress("DEPRECATION")
             display.getMetrics(outMetrics)
-
-            height = outMetrics.heightPixels
-            width = outMetrics.widthPixels
+            deviceHeight = outMetrics.heightPixels
+            deviceWidth = outMetrics.widthPixels
+            setDialogSize(deviceWidth, deviceHeight)
         }
 
+    }
+
+    private fun setDialogSize(deviceWidth: Int, deviceHeight:Int) {
         val params = dialog?.window?.attributes
-        params?.width = (width*0.8).toInt()
-        params?.height = (height*0.4).toInt()
+        params?.width = (deviceWidth*0.8).toInt()
+        params?.height = (deviceHeight*0.4).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
-    private fun settingPicker() {
+    private fun setPickerCycle() {
         binding.apply {
             pickerYear.wrapSelectorWheel = false
             pickerMonth.wrapSelectorWheel = false
@@ -68,20 +75,16 @@ class CustomDialog(val listener: DialogInterface): DialogFragment() {
         }
     }
 
-    private fun settingValue() {
-        binding.pickerYear.apply {
-            minValue = 1910
-            maxValue = 2021
-            value = 1990
-        }
-        binding.pickerMonth.apply {
-            minValue = 1
-            maxValue = 12
-        }
+    private fun settingPicker() {
+        setValues(binding.pickerYear, MIN_YEAR, MAX_YEAR)
+        setValues(binding.pickerMonth, MIN_MONTH, MAX_MONTH)
+        setValues(binding.pickerDay, MIN_DAY, MAX_DAY)
+    }
 
-        binding.pickerDay.apply {
-            minValue = 1
-            maxValue = 31
+    private fun setValues(picker: NumberPicker, min: Int, max: Int) {
+        picker.apply {
+            minValue = min
+            maxValue = max
         }
     }
 
@@ -98,5 +101,14 @@ class CustomDialog(val listener: DialogInterface): DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val MAX_YEAR = 2021
+        private const val MIN_YEAR = 1910
+        private const val MAX_MONTH = 12
+        private const val MIN_MONTH = 12
+        private const val MAX_DAY = 31
+        private const val MIN_DAY = 1
     }
 }
