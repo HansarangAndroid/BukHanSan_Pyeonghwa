@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lecturesopt28th.base.BindingFragment
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
 import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
@@ -21,25 +22,23 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RepositoryFragment : Fragment() {
-    private var _binding: FragmentRepositoryBinding? = null
-    private val binding get() = _binding ?: error("repository fragment binding error")
+class RepositoryFragment : BindingFragment<FragmentRepositoryBinding>() {
     private val viewModel by viewModels<GithubRepoViewModel>()
     private lateinit var githubRepoAdapter: GithubRepoAdapter
     private val args: RepositoryFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentRepositoryBinding.inflate(inflater, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentRepositoryBinding {
+        return FragmentRepositoryBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         viewModel.changeUserName(args.username)
         viewModel.getGithubRepo()
         initRepoRecyclerView()
@@ -117,18 +116,16 @@ class RepositoryFragment : Fragment() {
     private fun showDeleteDialog(position: Int) {
         val dialog = DeleteDialogFragment(object : DeleteDialogFragment.DeleteCallback {
             override fun delete() {
+                viewModel.repositories.value?.data?.get(position)?.let {
+                    viewModel.changeBackUpRepo(it)
+                }
                 viewModel.removeRepository(position)
                 githubRepoAdapter.notifyItemRemoved(position)
+
                 val snackbar = Snackbar.make(binding.root, "Repository removed Successfully", Snackbar.LENGTH_SHORT)
                 snackbar.setAction("Undo") {
                     recoverRepository(position)
                 }.show()
-
-                snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>(){
-                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-
-                    }
-                })
             }
             override fun cancel() {
                 githubRepoAdapter.notifyItemChanged(position)
@@ -141,13 +138,8 @@ class RepositoryFragment : Fragment() {
     }
 
     private fun recoverRepository(position: Int) {
-        val repository = githubRepoAdapter.currentList[position]
+        val repository = viewModel.backUpRepo.value
         viewModel.insertRepository(position,repository)
         githubRepoAdapter.notifyItemInserted(position)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

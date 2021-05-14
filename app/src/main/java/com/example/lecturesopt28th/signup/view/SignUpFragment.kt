@@ -34,6 +34,7 @@ class SignUpFragment : BindingFragment<FragmentSignUpBinding>(){
         selectBirthday()
         getSexChecked()
         getInputStatus()
+        signUp()
     }
 
     private fun selectBirthday() {
@@ -59,11 +60,13 @@ class SignUpFragment : BindingFragment<FragmentSignUpBinding>(){
 
     private fun getInputStatus() {
         binding.buttonSignUp.setOnClickListener {
-            viewModel.signUp()
-            if (viewModel.isValueEmpty.value == true) {
-                signUp()
-            } else {
-                Toast.makeText(requireContext(), "Input All Information", Toast.LENGTH_SHORT).show()
+            viewModel.getBlankValue()
+            viewModel.isValueEmpty.observe(viewLifecycleOwner) { isSuccessed ->
+                if (isSuccessed) {
+                    viewModel.getSignUpResult()
+                } else {
+                    Toast.makeText(requireContext(), "Input All Information", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -71,7 +74,6 @@ class SignUpFragment : BindingFragment<FragmentSignUpBinding>(){
     private fun signUp() {
         viewModel.isSuccessed.observe(viewLifecycleOwner){ isSuccessed ->
             if (isSuccessed) {
-                Toast.makeText(requireContext(), "Success Sign Up", Toast.LENGTH_SHORT).show()
                 goToLoginView()
             } else {
                 Toast.makeText(requireContext(), "Sign Up failed", Toast.LENGTH_SHORT).show()

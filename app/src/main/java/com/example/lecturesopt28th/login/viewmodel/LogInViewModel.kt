@@ -15,23 +15,17 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val repository: LoginRepository
-): ViewModel() {
+) : ViewModel() {
     val email = MutableLiveData<String>()
-    val password= MutableLiveData<String>()
+    val password = MutableLiveData<String>()
 
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean>
         get() = _loginSuccess
 
-    //Todo: Input Check
-    private val _isValueEmpty = MutableLiveData<Boolean>()
-    val isValueEmpty: LiveData<Boolean>
-        get() = _isValueEmpty
-
-    private fun getBlankValue(): Boolean {
-        val list = listOf(email, password)
-        return InputChecker.checkBlank(list) <= 0
-    }
+    private val _getEmptyCount = MutableLiveData<Boolean>()
+    val getEmptyCount: LiveData<Boolean>
+        get() = _getEmptyCount
 
     @SuppressLint("CheckResult")
     fun getLoginResult() {
@@ -43,9 +37,9 @@ class LogInViewModel @Inject constructor(
         ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _loginSuccess.value = it.success
+                _loginSuccess.postValue(it.success)
             }, {
-                _loginSuccess.value = false
+                _loginSuccess.postValue(false)
             })
     }
 }

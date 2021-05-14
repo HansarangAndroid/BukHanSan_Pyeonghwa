@@ -155,6 +155,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/apple_sd_gothic_neo_bold"
                     android:includeFontPadding="false"
+                    android:visibility="@{viewModel.userModel.data != null ? view.VISIBLE : view.GONE}"
                     android:text="@{String.format(@string/followers(viewModel.userModel.data.userName))}"
                     android:textSize="24dp"
                     app:layout_constraintEnd_toEndOf="@id/recyclerview_followers"

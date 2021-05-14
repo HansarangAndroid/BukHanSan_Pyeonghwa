@@ -35,6 +35,8 @@ class LogInFragment : BindingFragment<FragmentLogInBinding>() {
         goToSignUp()
         getSafeArgs()
         getInputStatus()
+        login()
+
     }
 
     private fun getSafeArgs() {
@@ -58,15 +60,14 @@ class LogInFragment : BindingFragment<FragmentLogInBinding>() {
     private fun getInputStatus() {
         binding.buttonLogin.setOnClickListener {
             viewModel.getLoginResult()
-            login()
         }
     }
 
     private fun login() {
         viewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
-            if (success) {
-                val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.email.value!!)
-                Navigation.findNavController(binding.root).navigate(action)
+            if (success == true) {
+                val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment2(viewModel.email.value!!)
+                findNavController().navigate(action)
             } else {
                 Toast.makeText(requireContext(), "Please check email or password", Toast.LENGTH_SHORT).show()
             }

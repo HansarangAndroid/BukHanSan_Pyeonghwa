@@ -25,18 +25,28 @@ class GithubRepoViewModel @Inject constructor(
     val repositories: LiveData<UiState<MutableList<GithubRepositoryModel>>>
         get() = _repositories
 
+    private val _backUpRepo = MutableLiveData<GithubRepositoryModel>()
+    val backUpRepo: LiveData<GithubRepositoryModel>
+        get() = _backUpRepo
+
     val switchStatus = MutableLiveData<Boolean>()
 
     fun changeUserName(name: String) {
         _userName.value = name
     }
 
+    fun changeBackUpRepo(repo: GithubRepositoryModel) {
+        _backUpRepo.value = repo
+    }
+
     fun removeRepository(position: Int) {
         _repositories.value?.data?.removeAt(position)
     }
 
-    fun insertRepository(position: Int, repo: GithubRepositoryModel) {
-        _repositories.value?.data?.add(position, repo)
+    fun insertRepository(position: Int, repo: GithubRepositoryModel?) {
+        if (repo != null) {
+            _repositories.value?.data?.add(position, repo)
+        }
     }
 
     fun remapRepositories(currentPosition: Int, targetPosition: Int) {

@@ -1,6 +1,7 @@
 package com.example.lecturesopt28th.signup.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,18 +38,9 @@ class SignUpViewModel @Inject constructor(
         _sex.value = sex.toString()
     }
 
-    private fun getBlankValue(): Boolean {
+    fun getBlankValue() {
         val list = listOf(email, password, nickname, birthday, sex)
-        return checkBlank(list) <= 0
-    }
-
-    fun signUp() {
-        if (getBlankValue()) {
-            _isValueEmpty.value = true
-            getSignUpResult()
-        } else {
-            _isValueEmpty.value = false
-        }
+        _isValueEmpty.value = checkBlank(list) <= 0
     }
 
     @SuppressLint("CheckResult")
@@ -65,9 +57,9 @@ class SignUpViewModel @Inject constructor(
         ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _isSuccessed.value = true
+                _isSuccessed.postValue(it.success)
             }, {
-                _isSuccessed.value = false
+                _isSuccessed.postValue(false)
             })
     }
 }

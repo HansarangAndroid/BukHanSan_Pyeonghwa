@@ -4,7 +4,7 @@ import android.widget.EditText
 import androidx.lifecycle.LiveData
 
 object InputChecker {
-    fun checkBlank(listText: List<LiveData<String>>): Int {
-        return listText.filter { it.value.isNullOrEmpty() }.count()
+    fun checkBlank(textList: List<LiveData<String>>): Int {
+        return textList.filter{ it.value.isNullOrBlank() }.count()
     }
 }
