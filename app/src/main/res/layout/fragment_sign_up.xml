@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:text="@={viewModel.password}"
                 android:textSize="13sp" />
 
@@ -86,7 +87,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Nick Name"
                 android:text="@={viewModel.nickname}"
-                android:inputType="textPassword"
                 android:textSize="13sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
