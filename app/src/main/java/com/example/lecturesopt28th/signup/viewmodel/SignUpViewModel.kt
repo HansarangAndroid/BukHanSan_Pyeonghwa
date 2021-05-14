@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.lecturesopt28th.signup.data.dto.RequestSignUp
 import com.example.lecturesopt28th.signup.repository.SignUpRespository
 import com.example.lecturesopt28th.utils.InputChecker.checkBlank
+import com.example.lecturesopt28th.utils.InputChecker.checkEmailPattern
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -36,6 +37,10 @@ class SignUpViewModel @Inject constructor(
 
     fun changeSex(sex: Int) {
         _sex.value = sex.toString()
+    }
+
+    fun checkEmailValidation(): Boolean {
+        return checkEmailPattern(email.value ?: "")
     }
 
     fun getBlankValue() {

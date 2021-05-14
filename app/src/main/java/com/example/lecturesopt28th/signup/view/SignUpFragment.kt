@@ -63,7 +63,11 @@ class SignUpFragment : BindingFragment<FragmentSignUpBinding>(){
             viewModel.getBlankValue()
             viewModel.isValueEmpty.observe(viewLifecycleOwner) { isSuccessed ->
                 if (isSuccessed) {
-                    viewModel.getSignUpResult()
+                    if (viewModel.checkEmailValidation()) {
+                        viewModel.getSignUpResult()
+                    } else {
+                        Toast.makeText(requireContext(), "Check Email Pattern", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(requireContext(), "Input All Information", Toast.LENGTH_SHORT).show()
                 }
