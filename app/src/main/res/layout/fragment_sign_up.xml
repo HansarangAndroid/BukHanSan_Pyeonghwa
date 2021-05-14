@@ -107,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
                 android:text="@={viewModel.phoneNumber}"
-                android:inputType="textPassword"
                 android:textSize="13sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
