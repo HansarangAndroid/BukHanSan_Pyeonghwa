@@ -58,6 +58,7 @@ class SignUpFragment : BindingFragment<FragmentSignUpBinding>(){
         }
     }
 
+    //중첩된 if문....나중에 다시 깔끔히
     private fun getInputStatus() {
         binding.buttonSignUp.setOnClickListener {
             viewModel.getBlankValue()
