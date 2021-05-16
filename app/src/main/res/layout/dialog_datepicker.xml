@@ -35,7 +35,6 @@
             app:layout_constraintStart_toEndOf="@+id/picker_month"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <Button
             android:id="@+id/button_complete"
             android:layout_width="0dp"

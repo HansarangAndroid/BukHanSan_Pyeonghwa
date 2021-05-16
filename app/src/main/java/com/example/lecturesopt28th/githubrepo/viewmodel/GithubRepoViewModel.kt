@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.lecturesopt28th.base.BaseViewModel
 import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
 import com.example.lecturesopt28th.githubrepo.data.repository.GithubRepoRepository
 import com.example.lecturesopt28th.utils.UiState
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GithubRepoViewModel @Inject constructor(
     private val repository: GithubRepoRepository
-) : ViewModel() {
+) : BaseViewModel() {
     private val _userName = MutableLiveData<String>()
     val userName: LiveData<String>
         get() = _userName
@@ -65,16 +66,18 @@ class GithubRepoViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getGithubRepo() {
         _repositories.postValue(UiState.loading(null))
-        repository.getGithubRepo(userName.value)
-            .map { it.toMutableList() }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _repositories.postValue(UiState.success(it))
-            }, {
-                it.printStackTrace()
-                Log.e("why fucking error ", it.message.toString())
-                _repositories.postValue(UiState.error(null, it.message))
-            })
+        addDisposable(
+            repository.getGithubRepo(userName.value)
+                .map { it.toMutableList() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _repositories.postValue(UiState.success(it))
+                }, {
+                    it.printStackTrace()
+                    Log.e("why fucking error ", it.message.toString())
+                    _repositories.postValue(UiState.error(null, it.message))
+                })
+        )
     }
 }

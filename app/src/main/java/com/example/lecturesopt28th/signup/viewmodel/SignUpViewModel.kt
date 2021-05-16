@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.lecturesopt28th.base.BaseViewModel
 import com.example.lecturesopt28th.signup.data.dto.RequestSignUp
 import com.example.lecturesopt28th.signup.repository.SignUpRespository
 import com.example.lecturesopt28th.utils.InputChecker.checkBlank
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpRepository: SignUpRespository
-) : ViewModel() {
+) : BaseViewModel() {
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     val nickname = MutableLiveData<String>()
@@ -50,21 +51,23 @@ class SignUpViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getSignUpResult() {
-        signUpRepository.signUp(
-            RequestSignUp(
-                email = email.value,
-                password = password.value,
-                sex = sex.value,
-                nickname = nickname.value,
-                phone = phoneNumber.value,
-                birth = birthday.value
-            )
-        ).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _isSuccessed.postValue(it.success)
-            }, {
-                _isSuccessed.postValue(false)
-            })
+        addDisposable(
+            signUpRepository.signUp(
+                RequestSignUp(
+                    email = email.value,
+                    password = password.value,
+                    sex = sex.value,
+                    nickname = nickname.value,
+                    phone = phoneNumber.value,
+                    birth = birthday.value
+                )
+            ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _isSuccessed.postValue(it.success)
+                }, {
+                    _isSuccessed.postValue(false)
+                })
+        )
     }
 }

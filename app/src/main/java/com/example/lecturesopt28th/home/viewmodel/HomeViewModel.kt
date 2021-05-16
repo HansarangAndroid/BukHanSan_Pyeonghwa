@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.lecturesopt28th.base.BaseViewModel
 import com.example.lecturesopt28th.home.data.entity.FollowerModel
 import com.example.lecturesopt28th.home.data.entity.UserModel
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val searchUserRepository: SearchUserRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     val userId = MutableLiveData<String?>()
 
@@ -35,31 +36,35 @@ class HomeViewModel @Inject constructor(
     fun getUserAccessed() {
         getFollowers()
         _userModel.postValue(UiState.loading(null))
-        searchUserRepository.getUserInfo(userId.value)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _userModel.postValue(UiState.success(it))
-                description.value =
-                    LoremIpsum.getInstance()
-                    .getWords(500)
-            }, {
-                _userModel.postValue(UiState.error(null, it.message))
-                it.printStackTrace()
-            })
+        addDisposable(
+            searchUserRepository.getUserInfo(userId.value)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _userModel.postValue(UiState.success(it))
+                    description.value =
+                        LoremIpsum.getInstance()
+                            .getWords(500)
+                }, {
+                    _userModel.postValue(UiState.error(null, it.message))
+                    it.printStackTrace()
+                })
+        )
     }
 
     @SuppressLint("CheckResult")
     fun getFollowers() {
         _followers.postValue(UiState.loading(null))
-        searchUserRepository.getFollowers(userId.value)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _followers.postValue(UiState.success(it))
-            },{
-                _followers.postValue(UiState.error(null, it.message))
-                it.printStackTrace()
-            })
+        addDisposable(
+            searchUserRepository.getFollowers(userId.value)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _followers.postValue(UiState.success(it))
+                },{
+                    _followers.postValue(UiState.error(null, it.message))
+                    it.printStackTrace()
+                })
+        )
     }
 }

@@ -109,6 +109,5 @@
             app:layout_constraintStart_toEndOf="@+id/textview_signup_info"
             app:layout_constraintTop_toTopOf="@+id/textview_signup_info" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

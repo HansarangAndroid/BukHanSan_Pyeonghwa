@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.lecturesopt28th.base.BaseViewModel
 import com.example.lecturesopt28th.login.repository.LoginRepository
 import com.example.lecturesopt28th.login.data.dto.RequestLogin
 import com.example.lecturesopt28th.utils.InputChecker
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val repository: LoginRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
@@ -29,17 +30,19 @@ class LogInViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getLoginResult() {
-        repository.login(
-            RequestLogin(
-                email.value,
-                password.value
-            )
-        ).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _loginSuccess.postValue(it.success)
-            }, {
-                _loginSuccess.postValue(false)
-            })
+        addDisposable(
+            repository.login(
+                RequestLogin(
+                    email.value,
+                    password.value
+                )
+            ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _loginSuccess.postValue(it.success)
+                }, {
+                    _loginSuccess.postValue(false)
+                })
+        )
     }
 }
