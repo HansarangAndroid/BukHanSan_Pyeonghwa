@@ -14,6 +14,8 @@ object Versions {
 
     const val paging_version = "3.0.0-alpha13"
 
+    const val coroutines_version = "1.3.9"
+
     const val glide_version = "4.12.0"
     const val coil_version = "1.1.1"
 

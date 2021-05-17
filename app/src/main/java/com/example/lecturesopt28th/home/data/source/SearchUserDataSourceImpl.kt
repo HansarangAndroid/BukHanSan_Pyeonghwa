@@ -4,6 +4,7 @@ import com.example.lecturesopt28th.home.api.SearchUserApiService
 import com.example.lecturesopt28th.home.data.dto.ResponseFollowers
 import com.example.lecturesopt28th.home.data.dto.ResponseUser
 import io.reactivex.Single
+import retrofit2.Response
 import javax.inject.Inject
 
 class SearchUserDataSourceImpl @Inject constructor(
@@ -12,6 +13,9 @@ class SearchUserDataSourceImpl @Inject constructor(
     override fun getUserInfo(userName: String?): Single<ResponseUser> =
         searchUserApiService.getUserInfo(userName)
 
-    override fun getFollowers(userName: String?): Single<List<ResponseFollowers>> =
+    override suspend fun getFollowers(userName: String?): Response<List<ResponseFollowers>>? =
         searchUserApiService.getFollowers(userName)
+
+//    override fun getFollowers(userName: String?): Single<List<ResponseFollowers>> =
+//        searchUserApiService.getFollowers(userName)
 }

@@ -70,6 +70,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:${Versions.rxjava_version}"
     implementation "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid_version}"
 
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_version}"
+
     //Glide
     implementation "com.github.bumptech.glide:glide:${Versions.glide_version}"
     kapt "com.github.bumptech.glide:compiler:${Versions.glide_version}"
