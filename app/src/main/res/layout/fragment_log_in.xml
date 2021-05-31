@@ -44,7 +44,7 @@
                 android:id="@+id/edittext_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.id}"
+                android:text="@={viewModel.email}"
                 android:hint="Github Id"
                 android:textSize="15sp" />
 
@@ -108,7 +108,6 @@
             android:layout_marginStart="15dp"
             app:layout_constraintStart_toEndOf="@+id/textview_signup_info"
             app:layout_constraintTop_toTopOf="@+id/textview_signup_info" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

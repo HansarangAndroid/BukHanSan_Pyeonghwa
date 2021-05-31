@@ -1,21 +1,32 @@
 package com.example.lecturesopt28th.di
 
 import com.example.lecturesopt28th.BuildConfig.GITHUB_API_URL
+import com.example.lecturesopt28th.BuildConfig.SOPT_URL
 import com.example.lecturesopt28th.githubrepo.api.GithubRepoApiService
 import com.example.lecturesopt28th.home.api.SearchUserApiService
+import com.example.lecturesopt28th.login.api.LoginApiService
+import com.example.lecturesopt28th.signup.api.SignUpApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class GithubRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SoptRetrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -48,6 +59,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    @GithubRetrofit
     fun provideGitHubRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(GITHUB_API_URL)
@@ -58,11 +70,33 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideGitHubApiService(retrofit: Retrofit): SearchUserApiService =
+    @SoptRetrofit
+    fun provideSoptRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(SOPT_URL)
+            .client(okHttpClient)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGitHubApiService(@GithubRetrofit retrofit: Retrofit): SearchUserApiService =
         retrofit.create(SearchUserApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideGithubRepoApiService(retrofit: Retrofit): GithubRepoApiService =
+    fun provideGithubRepoApiService(@GithubRetrofit retrofit: Retrofit): GithubRepoApiService =
         retrofit.create(GithubRepoApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSignUpApiService(@SoptRetrofit retrofit: Retrofit): SignUpApiService =
+        retrofit.create(SignUpApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLoginApiService(@SoptRetrofit retrofit: Retrofit): LoginApiService =
+        retrofit.create(LoginApiService::class.java)
 }
