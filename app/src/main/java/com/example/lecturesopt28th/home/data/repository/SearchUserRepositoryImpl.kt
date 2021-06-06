@@ -13,11 +13,10 @@ class SearchUserRepositoryImpl @Inject constructor(
     override fun getUserInfo(userName: String?): Single<UserModel> =
         searchUserDataSource.getUserInfo(userName).map { it.toUserModel() }
 
-    override suspend fun getFollowers(userName: String?): Response<List<FollowerModel>> =
-        searchUserDataSource.getFollowers(userName).body().map {
+    override suspend fun getFollowers(userName: String?): List<FollowerModel> =
+        searchUserDataSource.getFollowers(userName).map {
             it.toFollowerModel()
         }
-
 //    override fun getFollowers(userName: String?): Single<List<FollowerModel>> =
 //        searchUserDataSource.getFollowers(userName).map {
 //            it.map { data ->

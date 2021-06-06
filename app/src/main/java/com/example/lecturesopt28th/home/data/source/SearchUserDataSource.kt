@@ -7,6 +7,6 @@ import retrofit2.Response
 
 interface SearchUserDataSource {
     fun getUserInfo(userName: String?): Single<ResponseUser>
-    suspend fun getFollowers(userName: String?) : Response<List<ResponseFollowers>>?
+    suspend fun getFollowers(userName: String?) : List<ResponseFollowers>
 //    fun getFollowers(userName: String?) : Single<List<ResponseFollowers>>
 }

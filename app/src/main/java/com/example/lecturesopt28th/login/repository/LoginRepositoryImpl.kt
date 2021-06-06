@@ -1,8 +1,8 @@
 package com.example.lecturesopt28th.login.repository
 
-import com.example.lecturesopt28th.login.data.source.LoginDataSource
-import com.example.lecturesopt28th.login.data.dto.RequestLogin
-import com.example.lecturesopt28th.login.data.dto.ResponseLogin
+import com.example.data.login.RequestLogin
+import com.example.data.login.ResponseLogin
+import com.example.datasource.LoginDataSource
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -4,8 +4,8 @@ import com.example.lecturesopt28th.BuildConfig.GITHUB_API_URL
 import com.example.lecturesopt28th.BuildConfig.SOPT_URL
 import com.example.lecturesopt28th.githubrepo.api.GithubRepoApiService
 import com.example.lecturesopt28th.home.api.SearchUserApiService
-import com.example.lecturesopt28th.login.api.LoginApiService
-import com.example.lecturesopt28th.signup.api.SignUpApiService
+import com.example.model.login.LoginApiService
+import com.example.model.signup.SignUpApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,10 +23,6 @@ import javax.inject.Singleton
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class GithubRetrofit
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class SoptRetrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -70,18 +66,6 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    @SoptRetrofit
-    fun provideSoptRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(SOPT_URL)
-            .client(okHttpClient)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    @Provides
-    @Singleton
     fun provideGitHubApiService(@GithubRetrofit retrofit: Retrofit): SearchUserApiService =
         retrofit.create(SearchUserApiService::class.java)
 
@@ -90,13 +74,5 @@ object RetrofitModule {
     fun provideGithubRepoApiService(@GithubRetrofit retrofit: Retrofit): GithubRepoApiService =
         retrofit.create(GithubRepoApiService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideSignUpApiService(@SoptRetrofit retrofit: Retrofit): SignUpApiService =
-        retrofit.create(SignUpApiService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideLoginApiService(@SoptRetrofit retrofit: Retrofit): LoginApiService =
-        retrofit.create(LoginApiService::class.java)
 }
