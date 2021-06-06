@@ -78,6 +78,7 @@ dependencies {
     implementation project(path: ':data')
     implementation project(path: ':data:model')
     implementation project(path: ':data:datasource')
+    implementation project(path: ':data:repository')
     kapt "com.github.bumptech.glide:compiler:${Versions.glide_version}"
 
     //hilt

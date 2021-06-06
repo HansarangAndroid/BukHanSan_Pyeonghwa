@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.data.login.RequestLogin
 import com.example.lecturesopt28th.base.BaseViewModel
-import com.example.lecturesopt28th.login.repository.LoginRepository
+import com.example.repository.login.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -3,13 +3,12 @@ package com.example.lecturesopt28th.home.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lecturesopt28th.base.BaseViewModel
-import com.example.lecturesopt28th.home.data.entity.FollowerModel
-import com.example.lecturesopt28th.home.data.entity.UserModel
-import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.utils.UiState
+import com.example.model.home.entity.FollowerModel
+import com.example.model.home.entity.UserModel
+import com.example.repository.home.SearchUserRepository
 import com.thedeanda.lorem.LoremIpsum
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers

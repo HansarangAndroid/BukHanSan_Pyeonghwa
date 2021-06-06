@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemFollowersBinding
-import com.example.lecturesopt28th.home.data.entity.FollowerModel
+import com.example.model.home.entity.FollowerModel
 
 class FollowersAdapter(private val listener: (FollowerModel)-> Unit): ListAdapter<FollowerModel, FollowersAdapter.FollowersViewHolder>(
     diffCallback

@@ -3,3 +3,4 @@ rootProject.name = "LectureSopt28th"
 include ':data'
 include ':data:datasource'
 include ':data:model'
+include ':data:repository'
