@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.example.lecturesopt28th.home.data.entity.FollowerModel" />
+            type="com.example.model.home.entity.FollowerModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

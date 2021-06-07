@@ -9,7 +9,7 @@
 
         <variable
             name="data"
-            type="com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel" />
+            type="com.example.model.github.entity.GithubRepositoryModel" />
 
         <variable
             name="viewModel"

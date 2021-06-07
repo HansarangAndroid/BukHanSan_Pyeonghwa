@@ -7,23 +7,18 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.example.lecturesopt28th"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "com.example.lecturesopt28th.HiltTestRunner"
-        buildConfigField "String", "GITHUB_API_URL", properties['github_api_url']
-        buildConfigField "String", "SOPT_URL", properties['sopt_url']
     }
 
     buildTypes {
@@ -48,96 +43,67 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.VERSION_KOTLIN}"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_version}"
-    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation_version}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.VERSION_NAVIGATION}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.VERSION_NAVIGATION}"
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit_version}"
-    implementation "com.squareup.retrofit2:converter-gson:${Versions.retrofit_version}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit_version}"
+    implementation "com.squareup.retrofit2:retrofit:${Versions.VERSION_RETROFIT}"
+    implementation "com.squareup.retrofit2:converter-gson:${Versions.VERSION_RETROFIT}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${Versions.VERSION_RETROFIT}"
 
     //OkHttp Logging Interceptor
-    implementation "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp_version}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${Versions.VERSION_OKHTTP}"
 
     // RxJava
-    implementation "io.reactivex.rxjava2:rxjava:${Versions.rxjava_version}"
-    implementation "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid_version}"
+    implementation "io.reactivex.rxjava2:rxjava:${Versions.VERSION_RX_JAVA}"
+    implementation "io.reactivex.rxjava2:rxandroid:${Versions.VERSION_RX_ANDROID}"
 
     //Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.VERSION_COROUTINES}"
 
     //Glide
-    implementation "com.github.bumptech.glide:glide:${Versions.glide_version}"
-    kapt "com.github.bumptech.glide:compiler:${Versions.glide_version}"
+    implementation "com.github.bumptech.glide:glide:${Versions.VERSION_GLIDE}"
+    implementation project(path: ':data')
+    implementation project(path: ':data:model')
+    implementation project(path: ':data:datasource')
+    implementation project(path: ':data:repository')
+    kapt "com.github.bumptech.glide:compiler:${Versions.VERSION_GLIDE}"
 
     //hilt
-    implementation "com.google.dagger:hilt-android:${Versions.hilt_version}"
-    kapt "com.google.dagger:hilt-android-compiler:${Versions.hilt_version}"
+    implementation "com.google.dagger:hilt-android:${Versions.VERSION_HILT}"
+    kapt "com.google.dagger:hilt-android-compiler:${Versions.VERSION_HILT}"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
 
     //lifecycle
-    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle_version}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle_version}"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_version}"
-    kapt "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle_version}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.VERSION_LIFECYCLE}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VERSION_LIFECYCLE}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.VERSION_LIFECYCLE}"
+    kapt "androidx.lifecycle:lifecycle-compiler:${Versions.VERSION_LIFECYCLE}"
 
     //Fragment-ktx
-    implementation "androidx.fragment:fragment-ktx:${Versions.fragment_ktx_version}"
+    implementation "androidx.fragment:fragment-ktx:${Versions.VERSION_FRAGMENT_KTX}"
 
     //Activity-ktx
-    implementation "androidx.activity:activity-ktx:${Versions.activity_ktx_version}"
+    implementation "androidx.activity:activity-ktx:${Versions.VERSION_ACTIVITY_KTX}"
 
     //Coil
-    implementation "io.coil-kt:coil:${Versions.coil_version}"
+    implementation "io.coil-kt:coil:${Versions.VERSION_COIL}"
 
     // LoremIpsum
-    implementation "com.thedeanda:lorem:${Versions.lorem_version}"
+    implementation "com.thedeanda:lorem:${Versions.VERSION_LOREM}"
 
     //Annotations
-    implementation "com.android.support:support-annotations:${Versions.annotations_version}"
+    implementation "com.android.support:support-annotations:${Versions.VERSION_ANNOTATIONS}"
+
+    //EncryptedSharedPreference
+    implementation "androidx.security:security-crypto:${Versions.VERSION_CRYPTO}"
 }
 
-dependencies {
-    // JUnit
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'junit:junit:4.13.1'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    // Core
-    testImplementation 'androidx.test:core:1.3.0'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation 'androidx.test:core:1.3.0'
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-
-
-    // Unit Test Mock
-    androidTestImplementation("org.mockito:mockito-android:3.9.0")
-    testImplementation 'org.mockito:mockito-core:3.9.0'
-    testImplementation 'org.mockito:mockito-inline:3.9.0'
-    testImplementation 'org.robolectric:robolectric:4.4'
-
-
-
-    // AndroidJUnitRunner and JUnit Rules
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test:rules:1.3.0'
-
-    // Fragment
-    androidTestImplementation "androidx.fragment:fragment-testing:1.2.5"
-
-    // Hilt
-    testImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.28-alpha'
-    kaptTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
-    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.28-alpha'
-}

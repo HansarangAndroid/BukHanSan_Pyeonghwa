@@ -1,15 +1,13 @@
 package com.example.lecturesopt28th.signup.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.lecturesopt28th.base.BaseViewModel
-import com.example.lecturesopt28th.signup.data.dto.RequestSignUp
-import com.example.lecturesopt28th.signup.repository.SignUpRespository
 import com.example.lecturesopt28th.utils.InputChecker.checkBlank
 import com.example.lecturesopt28th.utils.InputChecker.checkEmailPattern
+import com.example.model.signup.RequestSignUp
+import com.example.repository.signup.SignUpRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val signUpRepository: SignUpRespository
+    private val signUpRepository: SignUpRepository
 ) : BaseViewModel() {
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()

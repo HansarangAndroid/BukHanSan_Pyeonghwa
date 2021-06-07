@@ -4,11 +4,10 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.lecturesopt28th.base.BaseViewModel
-import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
-import com.example.lecturesopt28th.githubrepo.data.repository.GithubRepoRepository
 import com.example.lecturesopt28th.utils.UiState
+import com.example.model.github.entity.GithubRepositoryModel
+import com.example.repository.github.GithubRepoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

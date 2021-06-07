@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,10 +13,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lecturesopt28th.base.BindingFragment
 import com.example.lecturesopt28th.databinding.FragmentRepositoryBinding
-import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
 import com.example.lecturesopt28th.githubrepo.viewmodel.GithubRepoViewModel
-import com.example.lecturesopt28th.utils.*
-import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.example.lecturesopt28th.utils.ItemDecoration
+import com.example.lecturesopt28th.utils.ItemTouchCallback
+import com.example.lecturesopt28th.utils.ItemTouchListener
+import com.example.lecturesopt28th.utils.UiState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 

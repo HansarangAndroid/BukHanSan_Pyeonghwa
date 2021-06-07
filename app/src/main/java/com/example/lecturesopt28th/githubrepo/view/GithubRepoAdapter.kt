@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemRepositoryBinding
-import com.example.lecturesopt28th.githubrepo.data.entity.GithubRepositoryModel
+import com.example.model.github.entity.GithubRepositoryModel
 
 class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<GithubRepositoryModel, GithubRepoAdapter.GithubRepoViewHolder> (
     githubDiffUtil

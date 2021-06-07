@@ -1,15 +1,11 @@
 package com.example.lecturesopt28th.home.view
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.fragment.app.testing.launchFragment
-import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.lecturesopt28th.LiveDataUtil.getOrAwaitValue
-import com.example.lecturesopt28th.MainActivity
 import com.example.lecturesopt28th.home.api.SearchUserApiService
-import com.example.lecturesopt28th.home.data.dto.ResponseFollowers
-import com.example.lecturesopt28th.home.data.entity.FollowerModel
-import com.example.lecturesopt28th.home.data.entity.UserModel
+import com.example.model.home.dto.ResponseFollowers
+import com.example.model.home.entity.FollowerModel
+import com.example.model.home.entity.UserModel
 import com.example.lecturesopt28th.home.data.repository.SearchUserRepository
 import com.example.lecturesopt28th.home.viewmodel.HomeViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
