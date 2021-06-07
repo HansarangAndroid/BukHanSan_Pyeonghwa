@@ -11,8 +11,5 @@ interface SearchUserApiService {
     fun getUserInfo(@Path("username") username: String?): Single<ResponseUser>
 
     @GET("/users/{username}/followers")
-    suspend fun getFollowers(@Path("username") username: String?): List<ResponseFollowers>
-
-//    @GET("/users/{username}/followers")
-//    fun getFollowers(@Path("username") username: String?): Single<List<ResponseFollowers>>
+    fun getFollowers(@Path("username") username: String?): Single<List<ResponseFollowers>>
 }

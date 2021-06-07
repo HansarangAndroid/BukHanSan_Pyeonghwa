@@ -6,6 +6,5 @@ import io.reactivex.Single
 
 interface SearchUserRepository {
     fun getUserInfo(userName:String?): Single<UserModel>
-    suspend fun getFollowers(userName: String?): List<FollowerModel>
-//    fun getFollowers(userName: String?): Single<List<FollowerModel>>
+    fun getFollowers(userName: String?): Single<List<FollowerModel>>
 }

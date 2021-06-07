@@ -12,10 +12,13 @@ import com.example.lecturesopt28th.R
 import com.example.lecturesopt28th.base.BindingFragment
 import com.example.lecturesopt28th.databinding.FragmentLogInBinding
 import com.example.lecturesopt28th.login.viewmodel.LogInViewModel
+import com.example.lecturesopt28th.utils.SharedPrefUtil
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LogInFragment : BindingFragment<FragmentLogInBinding>() {
+    @Inject lateinit var encryptedPrefs: SharedPrefUtil
     private val viewModel by viewModels<LogInViewModel>()
 
     override fun getFragmentBinding(
@@ -33,8 +36,7 @@ class LogInFragment : BindingFragment<FragmentLogInBinding>() {
         goToSignUp()
         getSafeArgs()
         getInputStatus()
-        login()
-
+        checkAuthenticated()
     }
 
     private fun getSafeArgs() {
@@ -64,11 +66,25 @@ class LogInFragment : BindingFragment<FragmentLogInBinding>() {
     private fun login() {
         viewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
             if (success == true) {
-                val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment2(viewModel.email.value!!)
-                findNavController().navigate(action)
+                encryptedPrefs.updatePrefs("authenticated", true)
+                moveToHome()
             } else {
                 Toast.makeText(requireContext(), "Please check email or password", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun checkAuthenticated() {
+        if (encryptedPrefs.getPrefs("authenticated", false)) {
+            moveToHome()
+        } else {
+            login()
+        }
+    }
+
+    private fun moveToHome() {
+//        val action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(viewModel.email.value!!)
+//        findNavController().navigate(action)
+        findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
     }
 }

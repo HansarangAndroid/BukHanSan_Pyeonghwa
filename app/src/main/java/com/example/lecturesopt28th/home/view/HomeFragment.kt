@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>() {
     private lateinit var followersAdapter: FollowersAdapter
-    private val args: HomeFragmentArgs by navArgs()
+//    private val args: HomeFragmentArgs by navArgs()
     val viewModel by viewModels<HomeViewModel>()
 
 
@@ -47,7 +47,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>() {
         searchGitHubUser()
         checkAuthenticatedUser()
         goToRepository()
-        upadateFollowers()
+        updateFollowers()
         setFollowersAdapter()
     }
 
@@ -99,7 +99,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun upadateFollowers() {
+    private fun updateFollowers() {
         viewModel.followers.observe(viewLifecycleOwner) {
             when(it.status) {
                 UiState.Status.LOADING -> {

@@ -53,26 +53,19 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    @SuppressLint("CheckResult")
     fun getFollowers() {
-        _followers.postValue(UiState.success(null))
-        viewModelScope.launch {
+        _followers.postValue(UiState.loading(null))
+        addDisposable(
             searchUserRepository.getFollowers(userId.value)
-        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _followers.postValue(UiState.success(it))
+                },{
+                    _followers.postValue(UiState.error(null, it.message))
+                    it.printStackTrace()
+                })
+        )
     }
-
-//    @SuppressLint("CheckResult")
-//    fun getFollowers() {
-//        _followers.postValue(UiState.loading(null))
-//        addDisposable(
-//            searchUserRepository.getFollowers(userId.value)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                    _followers.postValue(UiState.success(it))
-//                },{
-//                    _followers.postValue(UiState.error(null, it.message))
-//                    it.printStackTrace()
-//                })
-//        )
-//    }
 }

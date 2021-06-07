@@ -12,9 +12,6 @@ class SearchUserDataSourceImpl @Inject constructor(
     override fun getUserInfo(userName: String?): Single<ResponseUser> =
         searchUserApiService.getUserInfo(userName)
 
-    override suspend fun getFollowers(userName: String?): List<ResponseFollowers> =
+    override fun getFollowers(userName: String?): Single<List<ResponseFollowers>> =
         searchUserApiService.getFollowers(userName)
-
-//    override fun getFollowers(userName: String?): Single<List<ResponseFollowers>> =
-//        searchUserApiService.getFollowers(userName)
 }
