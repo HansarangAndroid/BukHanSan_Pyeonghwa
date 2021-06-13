@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
+@Deprecated("Use common Module")
 abstract class BaseViewModel: ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 

@@ -20,6 +20,7 @@ import com.example.lecturesopt28th.utils.UiState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
+@Deprecated("Use feature/login Module")
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>() {
     private lateinit var followersAdapter: FollowersAdapter

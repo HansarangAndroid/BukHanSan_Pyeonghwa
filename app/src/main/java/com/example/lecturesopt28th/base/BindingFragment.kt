@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
+@Deprecated("Use common Module")
 abstract class BindingFragment <T: ViewDataBinding>: Fragment() {
     private var _binding:T? = null
     protected val binding get() = _binding ?: error("view binding error")

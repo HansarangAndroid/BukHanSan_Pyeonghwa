@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="data"
+            type="com.example.githubrepo.data.entity.GithubRepositoryModel" />
+
+        <variable
+            name="viewModel"
+            type="com.example.githubrepo.viewmodel.GithubRepoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/repository"
+        clipToOutLine="@{true}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box_repository"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/textview_repository_name"
+            setIsSelected="@{true}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="@{data.repositoryName}"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:includeFontPadding="false"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.7"
+            tools:text="Name of Repository" />
+
+        <TextView
+            android:id="@+id/textview_repostiory_description"
+            setIsSelected="@{true}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="@{data.description != null ? data.description : @string/no_description}"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/textview_repository_name"
+            app:layout_constraintTop_toBottomOf="@id/textview_repository_name"
+            app:layout_constraintWidth_percent="0.7"
+            tools:text="Repository Description" />
+
+        <TextView
+            android:id="@+id/textview_repostiory_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/apple_sd_gothic_neo_bold"
+            android:text="@{data.language != null ? data.language : @string/no_language}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="@id/textview_repostiory_description"
+            app:layout_constraintTop_toBottomOf="@id/textview_repostiory_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Repository Language" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

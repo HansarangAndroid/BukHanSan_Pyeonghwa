@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.lecturesopt28th"
@@ -43,9 +43,18 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':data')
+    implementation project(path: ':data:model')
+    implementation project(path: ':data:repository')
+    implementation project(path: ':features')
+    implementation project(path: ':core')
+    implementation project(path: ':commons')
+    implementation project(path: ':features:home')
+
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.VERSION_KOTLIN}"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "androidx.core:core-ktx:${Versions.VERSION_CORE_KTX}"
+    implementation "androidx.appcompat:appcompat:${Versions.VERSION_APPCOMPAT}"
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -68,19 +77,13 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.VERSION_COROUTINES}"
 
-    //Glide
-    implementation "com.github.bumptech.glide:glide:${Versions.VERSION_GLIDE}"
-    implementation project(path: ':data')
-    implementation project(path: ':data:model')
-    implementation project(path: ':data:datasource')
-    implementation project(path: ':data:repository')
-    kapt "com.github.bumptech.glide:compiler:${Versions.VERSION_GLIDE}"
-
     //hilt
     implementation "com.google.dagger:hilt-android:${Versions.VERSION_HILT}"
+    implementation project(path: ':features:githubrepo')
+    implementation project(path: ':features:login')
     kapt "com.google.dagger:hilt-android-compiler:${Versions.VERSION_HILT}"
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.VERSION_HILT_COMPILER}"
+    kapt "androidx.hilt:hilt-compiler:${Versions.VERSION_HILT_COMPILER}"
 
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:${Versions.VERSION_LIFECYCLE}"

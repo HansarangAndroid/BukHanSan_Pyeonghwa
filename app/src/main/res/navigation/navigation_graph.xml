@@ -52,4 +52,8 @@
             android:name="username"
             app:argType="string" />
     </fragment>
+
+    <include app:graph="@navigation/nav_home"/>
+    <include app:graph="@navigation/nav_repo"/>
+    <include app:graph="@navigation/nav_login"/>
 </navigation>

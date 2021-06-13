@@ -16,6 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Deprecated("Use feature/login Module")
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val searchUserRepository: SearchUserRepository

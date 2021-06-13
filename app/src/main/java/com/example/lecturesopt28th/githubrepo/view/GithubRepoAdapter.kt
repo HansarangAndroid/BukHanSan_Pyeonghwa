@@ -10,6 +10,7 @@ import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemRepositoryBinding
 import com.example.model.github.entity.GithubRepositoryModel
 
+@Deprecated("Use feature/login Module")
 class GithubRepoAdapter(private val listener: ItemClickListener): ListAdapter<GithubRepositoryModel, GithubRepoAdapter.GithubRepoViewHolder> (
     githubDiffUtil
 ) {

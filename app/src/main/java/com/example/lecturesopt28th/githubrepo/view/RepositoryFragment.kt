@@ -21,6 +21,7 @@ import com.example.lecturesopt28th.utils.UiState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
+@Deprecated("Use feature/login Module")
 @AndroidEntryPoint
 class RepositoryFragment : BindingFragment<FragmentRepositoryBinding>() {
     private val viewModel by viewModels<GithubRepoViewModel>()

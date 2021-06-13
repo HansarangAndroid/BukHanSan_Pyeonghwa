@@ -3,7 +3,7 @@ package com.example.lecturesopt28th.login.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.data.login.RequestLogin
+import com.example.core.request.RequestLogin
 import com.example.lecturesopt28th.base.BaseViewModel
 import com.example.repository.login.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+@Deprecated("Use feature/login Module")
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val repository: LoginRepository
@@ -26,21 +27,21 @@ class LogInViewModel @Inject constructor(
     val getEmptyCount: LiveData<Boolean>
         get() = _getEmptyCount
 
-    @SuppressLint("CheckResult")
-    fun getLoginResult() {
-        addDisposable(
-            repository.login(
-                RequestLogin(
-                    email.value,
-                    password.value
-                )
-            ).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    _loginSuccess.postValue(it.success)
-                }, {
-                    _loginSuccess.postValue(false)
-                })
-        )
-    }
+//    @SuppressLint("CheckResult")
+//    fun getLoginResult() {
+//        addDisposable(
+//            repository.login(
+//                RequestLogin(
+//                    email.value,
+//                    password.value
+//                )
+//            ).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    _loginSuccess.postValue(it.success)
+//                }, {
+//                    _loginSuccess.postValue(false)
+//                })
+//        )
+//    }
 }

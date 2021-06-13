@@ -3,6 +3,7 @@ package com.example.lecturesopt28th.utils
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
+@Deprecated("Use core Module")
 class ItemTouchCallback(private val listener: ItemTouchListener): ItemTouchHelper.Callback() {
     override fun getMovementFlags(
         recyclerView: RecyclerView,

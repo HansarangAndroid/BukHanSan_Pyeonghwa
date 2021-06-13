@@ -16,6 +16,7 @@ import com.example.lecturesopt28th.utils.SharedPrefUtil
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@Deprecated("Use feature/login Module")
 @AndroidEntryPoint
 class LogInFragment : BindingFragment<FragmentLogInBinding>() {
     @Inject lateinit var encryptedPrefs: SharedPrefUtil

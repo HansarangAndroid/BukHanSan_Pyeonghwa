@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
+@Deprecated("Use core Module")
 class SharedPrefUtil @Inject constructor(
     val encryptedPrefs: SharedPreferences
 ) {

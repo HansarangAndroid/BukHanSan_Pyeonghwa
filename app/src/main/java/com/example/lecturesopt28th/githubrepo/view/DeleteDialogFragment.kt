@@ -12,6 +12,7 @@ import androidx.core.text.toSpannable
 import androidx.fragment.app.DialogFragment
 import com.example.lecturesopt28th.databinding.FragmentDeleteDialogBinding
 
+@Deprecated("Use feature/login Module")
 class DeleteDialogFragment(private val callback: DeleteCallback): DialogFragment() {
     private var _binding: FragmentDeleteDialogBinding? = null
     private val binding get() = _binding ?: error("view binding error")

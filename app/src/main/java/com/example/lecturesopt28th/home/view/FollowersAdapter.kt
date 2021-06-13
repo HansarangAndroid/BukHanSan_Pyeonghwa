@@ -9,6 +9,7 @@ import com.example.lecturesopt28th.BR
 import com.example.lecturesopt28th.databinding.ItemFollowersBinding
 import com.example.model.home.entity.FollowerModel
 
+@Deprecated("Use feature/login Module")
 class FollowersAdapter(private val listener: (FollowerModel)-> Unit): ListAdapter<FollowerModel, FollowersAdapter.FollowersViewHolder>(
     diffCallback
 ) {

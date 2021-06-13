@@ -16,5 +16,4 @@ data class UiState<out T>(
         fun <T> loading(data: T?): UiState<T>  = UiState(Status.LOADING, data, null)
         fun <T> error(data: T?, message: String?): UiState<T> = UiState(Status.ERROR, data, message)
     }
-
 }
